@@ -5,9 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vortex GPN | Защищенная Игровая Сеть</title>
     
-    <!-- Подключение твоей иконки для вкладки браузера -->
     <link rel="icon" type="image/x-icon" href="./vortex.ico">
-    
     <script src="https://cdn.tailwindcss.com"></script>
     
     <script>
@@ -15,8 +13,8 @@
             theme: {
                 extend: {
                     colors: {
-                        accent: '#a855f7', // Пурпурный
-                        cyanAccent: '#22d3ee', // Циан (под цвет твоего фона)
+                        accent: '#a855f7', 
+                        cyanAccent: '#22d3ee', 
                     },
                     animation: {
                         'glow': 'glow 3s ease-in-out infinite alternate',
@@ -31,31 +29,78 @@
             }
         }
     </script>
+    <style>
+        /* Стили для модальных окон */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1000; 
+            left: 0; top: 0; 
+            width: 100%; height: 100%; 
+            background-color: rgba(0,0,0,0.8);
+            backdrop-filter: blur(8px);
+        }
+        .modal-content {
+            background-color: #0a0a0a;
+            margin: 5% auto; 
+            padding: 30px; 
+            border: 1px solid #333;
+            width: 90%;
+            max-width: 800px;
+            color: #d1d5db;
+            max-height: 80vh;
+            overflow-y: auto;
+            border-radius: 12px;
+            box-shadow: 0 0 30px rgba(34, 211, 238, 0.1);
+        }
+        /* Окно триала (меньше размером) */
+        #trialModal .modal-content {
+            max-width: 500px;
+            text-align: center;
+        }
+        .close-modal {
+            color: #6b7280; 
+            float: right; 
+            font-size: 28px; 
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.2s;
+            line-height: 1;
+        }
+        .close-modal:hover { color: #fff; }
+        
+        /* Скроллбар для оферты */
+        .modal-content::-webkit-scrollbar { width: 8px; }
+        .modal-content::-webkit-scrollbar-track { background: #111; border-radius: 4px; }
+        .modal-content::-webkit-scrollbar-thumb { background: #444; border-radius: 4px; }
+        .modal-content::-webkit-scrollbar-thumb:hover { background: #22d3ee; }
+    </style>
 </head>
 <body class="text-gray-200 font-sans antialiased min-h-screen flex flex-col selection:bg-accent selection:text-white relative z-0">
 
-    <!-- Фоновое изображение и затемняющий оверлей -->
     <div class="fixed inset-0 bg-[url('./world_map.png')] bg-cover bg-center bg-no-repeat bg-fixed z-[-2]"></div>
-    <div class="fixed inset-0 bg-black/70 backdrop-blur-[2px] z-[-1]"></div> <!-- Затемнение 70%, чтобы читался текст -->
+    <div class="fixed inset-0 bg-black/70 backdrop-blur-[2px] z-[-1]"></div> 
 
     <!-- Header -->
     <header class="w-full border-b border-white/10 bg-black/30 backdrop-blur-md sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex flex-wrap justify-between items-center gap-4">
             <div class="text-2xl font-black text-white tracking-widest flex items-center gap-3">
                 <img src="./vortex.ico" alt="Vortex Logo" class="w-7 h-7 filter drop-shadow-[0_0_8px_rgba(168,85,247,0.8)]">
                 VORTEX
             </div>
-            <a href="https://t.me/vortex_gpn_bot" target="_blank" rel="noopener noreferrer" 
-               class="text-sm font-medium text-gray-300 hover:text-white transition-colors border border-white/20 hover:border-cyanAccent rounded-md px-5 py-2 bg-white/5 backdrop-blur-sm">
-                Поддержка
-            </a>
+            <nav class="flex gap-4">
+                <a href="instructions.html" class="text-sm font-medium text-gray-300 hover:text-white transition-colors border border-transparent hover:border-white/20 rounded-md px-4 py-2 bg-transparent hover:bg-white/5 backdrop-blur-sm">
+                    Инструкция
+                </a>
+                <a href="https://t.me/vortex_gpn_bot" target="_blank" rel="noopener noreferrer" class="text-sm font-medium text-white transition-colors border border-cyanAccent/50 hover:border-cyanAccent rounded-md px-5 py-2 bg-cyanAccent/10 backdrop-blur-sm shadow-[0_0_10px_rgba(34,211,238,0.2)]">
+                    Telegram Бот
+                </a>
+            </nav>
         </div>
     </header>
 
     <!-- Main Content -->
     <main class="flex-grow flex flex-col justify-center items-center relative z-10 py-12">
-        
-        <!-- Hero Section -->
         <section class="w-full max-w-4xl mx-auto px-6 text-center flex flex-col items-center">
             <div class="inline-block mb-6 px-4 py-1.5 rounded-full border border-cyanAccent/30 bg-cyanAccent/10 text-cyanAccent text-xs font-bold tracking-widest uppercase shadow-[0_0_15px_rgba(34,211,238,0.2)]">
                 Релиз 3.2 // Anti-Shaping Ready
@@ -72,60 +117,56 @@
                 Забудь про разрывы соединения и потерю пакетов. Умная маршрутизация трафика для хардкорного гейминга.
             </p>
             
-            <!-- Блок с двумя кнопками выбора -->
-            <div class="flex flex-col sm:flex-row gap-6 w-full sm:w-auto justify-center items-center">
-                
-                <!-- Кнопка Windows -->
+            <div class="flex flex-col sm:flex-row gap-6 w-full sm:w-auto justify-center items-center mb-8">
                 <button id="btn-win" class="w-full sm:w-64 bg-white/10 hover:bg-white/20 border border-white/20 hover:border-cyanAccent text-white font-bold text-lg px-6 py-4 rounded-xl transition-all duration-300 backdrop-blur-md animate-glow flex flex-col items-center justify-center gap-2 group">
                     <svg class="w-8 h-8 text-cyanAccent group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M0,3.449L9.75,2.101V11.5H0V3.449z M10.25,2.032L24,0.113V11.5H10.25V2.032z M0,12.5H9.75V21.899L0,20.551V12.5z M10.25,12.5H24V23.887L10.25,21.968V12.5z"/></svg>
                     <span>Скачать для ПК</span>
                     <span class="text-xs text-gray-400 font-normal uppercase tracking-widest">Windows (.exe)</span>
                 </button>
 
-                <!-- Кнопка Android -->
                 <button id="btn-and" class="w-full sm:w-64 bg-white/10 hover:bg-white/20 border border-white/20 hover:border-accent text-white font-bold text-lg px-6 py-4 rounded-xl transition-all duration-300 backdrop-blur-md animate-glow flex flex-col items-center justify-center gap-2 group">
                     <svg class="w-8 h-8 text-accent group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M17.523 15.3414c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993.0004.5511-.4482.9997-.9993.9997m-11.046 0c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993 0 .5511-.4482.9997-.9993.9997m11.4045-6.02l1.9973-3.4592a.416.416 0 00-.1517-.5677.416.416 0 00-.5677.1517l-2.0315 3.5186A11.5165 11.5165 0 0012 7.2812c-2.0911 0-4.0494.5574-5.7279 1.5126L4.2406 5.2752a.416.416 0 00-.5677-.1517.416.416 0 00-.1517.5677l1.9973 3.4592C2.6889 11.1867.3432 14.6589 0 18.761h24c-.3436-4.1021-2.6893-7.5743-5.5185-9.6192"/></svg>
                     <span>Скачать Mobile</span>
                     <span class="text-xs text-gray-400 font-normal uppercase tracking-widest">Android (.apk)</span>
                 </button>
-
             </div>
+            
+            <!-- Кнопка Триала -->
+            <button id="openTrialBtn" class="text-sm font-medium text-cyanAccent/80 hover:text-cyanAccent underline underline-offset-4 transition-colors">
+                Нет доступа к Telegram? Забрать 3 дня GPN для теста
+            </button>
         </section>
 
         <!-- Features -->
         <section class="w-full max-w-7xl mx-auto px-6 py-20">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                
                 <div class="bg-black/40 p-8 rounded-2xl border border-white/10 hover:border-cyanAccent/50 transition-all duration-300 backdrop-blur-md">
                     <div class="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center mb-6 border border-white/10">
                         <svg class="w-6 h-6 text-cyanAccent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg>
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-3 tracking-wide">Сплит-туннелинг</h3>
+                    <h3 class="text-xl font-bold text-white mb-3 tracking-wide">Точечный роутинг</h3>
                     <p class="text-gray-400 leading-relaxed text-sm">
-                        Играй через GPN, пока браузер работает через обычную сеть. Максимальная эффективность без лишней нагрузки.
+                        Направляй трафик соревновательных шутеров или тяжелых сессий через инфраструктуру GPN, оставляя браузер и Discord на обычном соединении. Нулевая просадка скорости.
                     </p>
                 </div>
-
                 <div class="bg-black/40 p-8 rounded-2xl border border-white/10 hover:border-accent/50 transition-all duration-300 backdrop-blur-md">
                     <div class="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center mb-6 border border-white/10">
                         <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-3 tracking-wide">Стабильность</h3>
+                    <h3 class="text-xl font-bold text-white mb-3 tracking-wide">Защита от потери пакетов</h3>
                     <p class="text-gray-400 leading-relaxed text-sm">
-                        Никаких вылетов из матчей благодаря защите от нестабильных узлов провайдера. Ровный график фреймтайма сети.
+                        Алгоритмы обходят загруженные узлы твоего провайдера. Ровный график фреймтайма сети и защита от внезапных вылетов из матча в самый ответственный момент.
                     </p>
                 </div>
-
                 <div class="bg-black/40 p-8 rounded-2xl border border-white/10 hover:border-cyanAccent/50 transition-all duration-300 backdrop-blur-md">
                     <div class="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center mb-6 border border-white/10">
                         <svg class="w-6 h-6 text-cyanAccent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-3 tracking-wide">Безопасность</h3>
+                    <h3 class="text-xl font-bold text-white mb-3 tracking-wide">Абсолютная инкогнито-защита</h3>
                     <p class="text-gray-400 leading-relaxed text-sm">
-                        Шифрование трафика уровня военных стандартов. Защита личных данных от перехвата в любых сетях.
+                        Шифрование трафика маскирует твою активность. Защита игровых аккаунтов от перехвата сессий и полная устойчивость к DDoS-атакам на твой IP-адрес.
                     </p>
                 </div>
-
             </div>
         </section>
     </main>
@@ -133,26 +174,112 @@
     <!-- Footer -->
     <footer class="w-full border-t border-white/10 bg-black/50 py-8 mt-auto relative z-10 backdrop-blur-md">
         <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-500">
-            <div class="font-mono tracking-widest">
-                &copy; 2026 VORTEX GPN_
-            </div>
+            <div class="font-mono tracking-widest">&copy; 2026 VORTEX GPN_</div>
             <div class="flex gap-6">
-                <a href="#" class="hover:text-white transition-colors">Публичная оферта</a>
+                <a href="#" id="openOfferBtn" class="hover:text-white transition-colors">Публичная оферта</a>
                 <a href="mailto:support@data-sync-node.win" class="hover:text-white transition-colors">support@data-sync-node.win</a>
             </div>
         </div>
     </footer>
 
-    <!-- JS Логика (Замыкание воронки) -->
+    <!-- Модальное окно: Триал -->
+    <div id="trialModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeTrial">&times;</span>
+            <h2 class="text-2xl font-bold text-white mb-4">Тестовый доступ GPN</h2>
+            <p class="text-gray-400 text-sm mb-6">Сгенерируй стартовый ключ на 3 дня, чтобы получить доступ к сети и разблокировать Telegram для управления подпиской.</p>
+            
+            <div id="trialFormBlock">
+                <button id="generateTrialBtn" class="w-full bg-cyanAccent/20 hover:bg-cyanAccent/30 border border-cyanAccent text-cyanAccent font-bold py-3 px-4 rounded-lg transition-colors">
+                    Сгенерировать ключ
+                </button>
+            </div>
+            
+            <!-- Блок с результатом генерации -->
+            <div id="trialResultBlock" class="hidden mt-4 text-left bg-black/50 p-4 border border-white/10 rounded-lg">
+                <p class="text-xs text-green-400 mb-2 font-mono uppercase tracking-widest">Ключ успешно создан</p>
+                <div class="flex gap-2">
+                    <input type="text" id="vlessKey" class="w-full bg-transparent border-b border-white/20 text-white text-sm outline-none font-mono" readonly value="vless://загрузка...">
+                    <button id="copyKeyBtn" class="bg-white/10 hover:bg-white/20 px-3 py-1 rounded text-xs transition-colors">Копировать</button>
+                </div>
+                <p class="text-xs text-gray-500 mt-3">Открой приложение Vortex, перейди в буфер обмена и импортируй профиль.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно: Оферта -->
+    <div id="offerModal" class="modal">
+        <div class="modal-content text-sm leading-relaxed">
+            <span class="close-modal" id="closeOffer">&times;</span>
+            <h2 class="text-xl font-bold text-white mb-6 uppercase">Пользовательское соглашение (Публичная оферта)</h2>
+            <div class="text-gray-300 space-y-4">
+                <p><strong>1. Общие положения</strong><br>
+                1.1. Настоящий документ является официальным предложением (публичной офертой) Индивидуального предпринимателя Рогозин Тимур Валерьевич (ОГРНИП: 325390000084956, ИНН: 391302621548), далее именуемого «Исполнитель», заключить договор на оказание информационно-вычислительных услуг с любым физическим или юридическим лицом, далее именуемым «Заказчик».<br>
+                1.2. В соответствии со статьей 437 Гражданского Кодекса Российской Федерации (ГК РФ), данный документ является публичной офертой.<br>
+                1.3. Полным и безоговорочным акцептом настоящей оферты (ст. 438 ГК РФ) является осуществление Заказчиком оплаты предложенных Исполнителем Услуг.<br>
+                1.4. Оказание услуг осуществляется в соответствии с кодами ОКВЭД 62.09 и 63.11.</p>
+                
+                <p><strong>2. Предмет договора</strong><br>
+                2.1. Исполнитель обязуется оказать Заказчику услуги по предоставлению доступа к специализированной IT-инфраструктуре (далее — «Услуги»), а Заказчик обязуется принять и оплатить их.<br>
+                2.2. В состав предоставляемых Услуг входит:<br>
+                - Предоставление в аренду защищенных цифровых каналов связи для обмена данными между устройствами Заказчика и серверами Исполнителя.<br>
+                - Предоставление вычислительных мощностей для оптимизации маршрутизации сетевого трафика (снижение задержки/ping в клиент-серверных приложениях).<br>
+                - Криптографическая защита транзитного трафика Заказчика от перехвата в открытых сетях передачи данных.</p>
+                
+                <p><strong>3. Порядок оказания услуг</strong><br>
+                3.1. Доступ к инфраструктуре предоставляется в автоматическом режиме программно-аппаратным комплексом Исполнителя после подтверждения факта оплаты.<br>
+                3.2. Авторизация Заказчика и выдача конфигурационных данных осуществляется посредством автоматизированного интерфейса (в том числе через ботов в мессенджере Telegram).<br>
+                3.3. Услуга считается оказанной надлежащим образом с момента генерации и передачи Заказчику уникальных ключей доступа (конфигурации), независимо от того, воспользовался ли Заказчик предоставленным доступом фактически.</p>
+                
+                <p><strong>4. Права и обязанности сторон</strong><br>
+                4.1. Исполнитель обязуется:<br>
+                4.1.1. Обеспечить работоспособность предоставляемой инфраструктуры не менее 99% времени в месяц (SLA), за исключением времени плановых технических работ.<br>
+                4.1.2. Не передавать данные о сетевой активности Заказчика третьим лицам, за исключением случаев, прямо предусмотренных законодательством РФ.<br>
+                4.2. Заказчик обязуется:<br>
+                4.2.1. Не использовать мощности Исполнителя для осуществления любой деятельности, противоречащей законодательству РФ и международному праву.<br>
+                4.2.2. Не использовать предоставляемые каналы связи для организации DDoS-атак, массовых рассылок (SPAM), сканирования уязвимостей сетей, фишинга, а также для распространения вредоносного ПО.<br>
+                4.3. В случае выявления фактов нарушения пункта 4.2, Исполнитель имеет право в одностороннем порядке заблокировать доступ Заказчика к Услугам без возврата денежных средств.</p>
+                
+                <p><strong>5. Стоимость услуг и порядок расчетов</strong><br>
+                5.1. Стоимость Услуг определяется тарифами, опубликованными в интерфейсе информационного ресурса Исполнителя (Telegram-боте).<br>
+                5.2. Оплата производится в рублях РФ на условиях 100% (стопроцентной) предоплаты через интегрированные электронные платежные системы (эквайринг).<br>
+                5.3. Электронный чек, подтверждающий факт расчетов, направляется Заказчику в соответствии с требованиями Федерального закона от 22.05.2003 N 54-ФЗ.</p>
+                
+                <p><strong>6. Возврат средств</strong><br>
+                6.1. Заказчик вправе отказаться от исполнения настоящего Договора, уведомив об этом Исполнителя.<br>
+                6.2. В случае отказа Заказчика от Услуг надлежащего качества, возврат средств за неиспользованный период осуществляется пропорционально времени, оставшемуся до конца оплаченного расчетного периода, за вычетом комиссий платежных систем.<br>
+                6.3. Возврат средств при нарушении Исполнителем SLA (п. 4.1.1) производится в полном объеме за расчетный период по письменному заявлению Заказчика.</p>
+                
+                <p><strong>7. Ответственность и Форс-мажор</strong><br>
+                7.1. Исполнитель предоставляет Услуги по принципу «как есть» (AS IS). Исполнитель не несет ответственности за несоответствие Услуг конкретным ожиданиям Заказчика.<br>
+                7.2. Исполнитель не несет ответственности за перебои в предоставлении Услуг, вызванные нестабильностью работы сторонних интернет-провайдеров, магистральных операторов связи или неисправностью оборудования на стороне Заказчика.<br>
+                7.3. Стороны освобождаются от ответственности за частичное или полное неисполнение обязательств по настоящему Договору, если это неисполнение явилось следствием обстоятельств непреодолимой силы (форс-мажор), включая стихийные бедствия, аварии в дата-центрах, нормативные акты государственных органов, препятствующие исполнению договора.</p>
+                
+                <p><strong>8. Политика обработки персональных данных</strong><br>
+                8.1. Акцептуя оферту, Заказчик дает согласие Исполнителю на обработку своих персональных данных (в том числе ID в мессенджере, IP-адрес) в соответствии с Федеральным законом от 27.07.2006 N 152-ФЗ «О персональных данных».<br>
+                8.2. Данные используются исключительно для целей исполнения настоящего Договора, технической поддержки и автоматизации биллинга.</p>
+                
+                <p><strong>9. Реквизиты Исполнителя</strong><br>
+                Индивидуальный предприниматель Рогозин Тимур Валерьевич<br>
+                ИНН: 391302621548<br>
+                ОГРНИП: 325390000084956<br>
+                Юридический адрес: г.Калининград, ул. Красносельская, дом 60, кв. 9в<br>
+                Расчетный счет: 4080281060081025090<br>
+                Название банка: Ф-Л "ЦЕНТРАЛЬНЫЙ" БАНКА ВТБ ( ПАО)<br>
+                БИК: 044525411<br>
+                Корр. счет: 30101810145250000411<br>
+                Контактный Email: support@data-sync-node.win</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- JS Логика (Скачивание, Редирект, Модалки, Анти-Абуз) -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const botUrl = 'https://t.me/vortex_gpn_bot';
-            const winBtn = document.getElementById('btn-win');
-            const andBtn = document.getElementById('btn-and');
-
-            // Универсальная функция загрузки и редиректа
+            
+            // --- ЛОГИКА СКАЧИВАНИЯ ---
             function startFunnel(url, buttonElement, originalContent) {
-                // Блокируем кнопку и показываем анимацию загрузки
                 buttonElement.disabled = true;
                 buttonElement.innerHTML = `
                     <svg class="animate-spin h-8 w-8 text-white mb-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -161,31 +288,96 @@
                     </svg>
                     <span class="tracking-widest">ПОДГОТОВКА...</span>
                 `;
-
-                // Запуск невидимого скачивания
                 const downloadLink = document.createElement('a');
                 downloadLink.href = url;
                 document.body.appendChild(downloadLink);
                 downloadLink.click();
                 document.body.removeChild(downloadLink);
-
-                // Редирект в бота спустя ровно 2 секунды
-                setTimeout(() => {
-                    window.location.href = botUrl;
-                }, 2000);
+                
+                setTimeout(() => { window.location.href = botUrl; }, 2000);
             }
 
-            // Слушатель для Windows
-            winBtn.addEventListener('click', (e) => {
+            document.getElementById('btn-win').addEventListener('click', function(e) {
                 e.preventDefault();
-                startFunnel('https://pub-b23307e33342468e8c637d8704627212.r2.dev/Vortex_GPN_Setup.exe', winBtn, winBtn.innerHTML);
+                startFunnel('https://pub-b23307e33342468e8c637d8704627212.r2.dev/Vortex_GPN_Setup.exe', this, this.innerHTML);
+            });
+            document.getElementById('btn-and').addEventListener('click', function(e) {
+                e.preventDefault();
+                startFunnel('https://pub-b23307e33342468e8c637d8704627212.r2.dev/Vortex_GPN_Android.apk', this, this.innerHTML);
             });
 
-            // Слушатель для Android
-            andBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                startFunnel('https://pub-b23307e33342468e8c637d8704627212.r2.dev/Vortex_GPN_Android.apk', andBtn, andBtn.innerHTML);
-            });
+            // --- ЛОГИКА МОДАЛЬНЫХ ОКОН ---
+            function setupModal(triggerId, modalId, closeId) {
+                const modal = document.getElementById(modalId);
+                document.getElementById(triggerId).onclick = (e) => { e.preventDefault(); modal.style.display = "block"; };
+                document.getElementById(closeId).onclick = () => { modal.style.display = "none"; };
+                window.addEventListener('click', (e) => { if (e.target == modal) modal.style.display = "none"; });
+            }
+            
+            setupModal('openOfferBtn', 'offerModal', 'closeOffer');
+            setupModal('openTrialBtn', 'trialModal', 'closeTrial');
+
+            // --- ЛОГИКА АНТИ-АБУЗА И ТРИАЛА ---
+            const generateBtn = document.getElementById('generateTrialBtn');
+            const resultBlock = document.getElementById('trialResultBlock');
+            const formBlock = document.getElementById('trialFormBlock');
+            const keyInput = document.getElementById('vlessKey');
+            const copyBtn = document.getElementById('copyKeyBtn');
+
+            // Проверяем, брал ли юзер триал ранее
+            if(localStorage.getItem('vortex_trial_key')) {
+                formBlock.style.display = 'none';
+                resultBlock.style.display = 'block';
+                keyInput.value = localStorage.getItem('vortex_trial_key');
+            }
+
+            // Простая генерация слепка устройства (Fingerprint)
+            const generateFingerprint = () => {
+                return btoa(navigator.userAgent + screen.width + screen.height + new Date().getTimezoneOffset()).substring(0, 16);
+            };
+
+            generateBtn.onclick = async () => {
+                const fingerprint = generateFingerprint();
+                generateBtn.innerText = 'Связь с узлом...';
+                generateBtn.disabled = true;
+
+                try {
+                    // ЗДЕСЬ БУДЕТ ВЫЗОВ НАШЕГО ВЕБХУКА НА СЕРВЕРЕ
+                    // const response = await fetch('https://tvoi-server.ru/api/trial', {
+                    //     method: 'POST',
+                    //     body: JSON.stringify({ device_id: fingerprint })
+                    // });
+                    // const data = await response.json();
+                    
+                    // Эмуляция успешного ответа сервера (ВРЕМЕННАЯ ЗАГЛУШКА)
+                    setTimeout(() => {
+                        const fakeKey = "vless://test-trial-key-" + fingerprint + "@vps.data-sync-node.win:48201?security=reality&type=tcp";
+                        
+                        // Сохраняем локально, чтобы не абузили перезагрузкой
+                        localStorage.setItem('vortex_trial_key', fakeKey);
+                        
+                        formBlock.style.display = 'none';
+                        resultBlock.style.display = 'block';
+                        keyInput.value = fakeKey;
+                    }, 1500);
+
+                } catch (error) {
+                    generateBtn.innerText = 'Ошибка сети';
+                    generateBtn.style.borderColor = 'red';
+                    generateBtn.style.color = 'red';
+                }
+            };
+
+            copyBtn.onclick = () => {
+                keyInput.select();
+                document.execCommand('copy');
+                copyBtn.innerText = 'СКОПИРОВАНО';
+                copyBtn.classList.replace('bg-white/10', 'bg-cyanAccent/50');
+                setTimeout(() => {
+                    copyBtn.innerText = 'Копировать';
+                    copyBtn.classList.replace('bg-cyanAccent/50', 'bg-white/10');
+                }, 2000);
+            };
         });
     </script>
 </body>
