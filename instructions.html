@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Инструкция | Vortex GPN</title>
+    
+    <link rel="icon" type="image/x-icon" href="./vortex.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'montserrat': ['Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        accent: '#a855f7',
+                        cyanAccent: '#22d3ee',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="text-gray-200 font-sans antialiased min-h-screen flex flex-col selection:bg-accent selection:text-white relative z-0">
+
+    <!-- Тот же фон, что и на главной -->
+    <div class="fixed inset-0 bg-[url('./world_map.png')] bg-cover bg-center bg-no-repeat bg-fixed z-[-2]"></div>
+    <div class="fixed inset-0 bg-black/80 backdrop-blur-[2px] z-[-1]"></div>
+
+    <!-- Header -->
+    <header class="w-full border-b border-white/10 bg-black/30 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-black text-white tracking-widest flex items-center gap-3 font-montserrat">
+                <img src="./vortex.ico" alt="Vortex Logo" class="w-7 h-7 filter drop-shadow-[0_0_8px_rgba(168,85,247,0.8)]">
+                VORTEX
+            </div>
+            
+            <a href="index.html" class="text-sm font-medium text-gray-300 hover:text-white transition-colors border border-white/20 hover:border-accent rounded-md px-5 py-2 bg-white/5 backdrop-blur-sm">
+                ← На главную
+            </a>
+        </div>
+    </header>
+
+    <!-- Контент инструкции -->
+    <main class="flex-grow flex flex-col items-center relative z-10 py-12 px-6">
+        <div class="w-full max-w-4xl">
+            
+            <h1 class="text-3xl md:text-5xl font-montserrat font-black text-white mb-10 tracking-wider">
+                КАК ПОЛЬЗОВАТЬСЯ VORTEX GPN
+            </h1>
+
+            <!-- Блок 1: Главный экран приложения -->
+            <div class="bg-black/40 border border-white/10 rounded-2xl p-6 md:p-8 mb-8 backdrop-blur-md flex flex-col md:flex-row gap-8 items-start">
+                
+                <!-- Место под твой скриншот (screen1.jpg) -->
+                <div class="w-full md:w-1/2 rounded-xl overflow-hidden border border-white/20 shadow-[0_0_15px_rgba(168,85,247,0.2)]">
+                    <img src="./screen1.jpg" alt="Главный экран приложения" class="w-full h-auto object-cover" onerror="this.src='https://via.placeholder.com/600x400/1a1a2e/a855f7?text=Место+для+скриншота+screen1.jpg'">
+                </div>
+
+                <div class="w-full md:w-1/2">
+                    <h3 class="text-2xl font-bold text-white mb-4 border-b border-white/10 pb-2">Управление сетью</h3>
+                    <ul class="space-y-4 text-sm text-gray-300">
+                        <li>
+                            <strong class="text-cyanAccent block text-base mb-1">Кнопка "Подключить" (Центральный Вортекс)</strong>
+                            Нажми на логотип в центре экрана для старта туннелирования. Статус внизу изменится на "ПОДКЛЮЧЕНО".
+                        </li>
+                        <li>
+                            <strong class="text-accent block text-base mb-1">Выбор сервера (Флаг)</strong>
+                            Нажми на выпадающее меню сверху (например, NewAge-Shram), чтобы выбрать другой узел маршрутизации.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Блок 2: Верхняя панель инструментов -->
+            <div class="bg-black/40 border border-white/10 rounded-2xl p-6 md:p-8 mb-8 backdrop-blur-md flex flex-col md:flex-row gap-8 items-start">
+                
+                <!-- Место под твой скриншот (screen2.jpg) -->
+                <div class="w-full md:w-1/2 rounded-xl overflow-hidden border border-white/20 shadow-[0_0_15px_rgba(34,211,238,0.2)]">
+                    <img src="./screen2.jpg" alt="Панель инструментов" class="w-full h-auto object-cover" onerror="this.src='https://via.placeholder.com/600x400/1a1a2e/22d3ee?text=Место+для+скриншота+screen2.jpg'">
+                </div>
+
+                <div class="w-full md:w-1/2">
+                    <h3 class="text-2xl font-bold text-white mb-4 border-b border-white/10 pb-2">Панель инструментов</h3>
+                    <ul class="space-y-4 text-sm text-gray-300">
+                        <li>
+                            <strong class="text-cyanAccent block text-base mb-1">Иконка фильтра (Сплит-туннелинг)</strong>
+                            Позволяет выбрать конкретные приложения (.exe) или домены, которые будут работать в обход защищенной сети.
+                        </li>
+                        <li>
+                            <strong class="text-green-400 block text-base mb-1">Иконка обновления (Health Check)</strong>
+                            Принудительное обновление конфигурации и проверка статуса узлов провайдера.
+                        </li>
+                        <li>
+                            <strong class="text-red-400 block text-base mb-1">Иконка корзины</strong>
+                            Очистка локальных логов и сброс текущей сессии подключения.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="w-full border-t border-white/10 bg-black/50 py-8 mt-auto relative z-10 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-500">
+            <div class="font-mono tracking-widest">&copy; 2026 VORTEX GPN_</div>
+            <div class="flex gap-6">
+                <a href="#" class="hover:text-white transition-colors">Публичная оферта</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

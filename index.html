@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vortex GPN | Защищенная Игровая Сеть</title>
+    
+    <!-- Подключение твоей иконки для вкладки браузера -->
+    <link rel="icon" type="image/x-icon" href="./vortex.ico">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        accent: '#a855f7', // Пурпурный
+                        cyanAccent: '#22d3ee', // Циан (под цвет твоего фона)
+                    },
+                    animation: {
+                        'glow': 'glow 3s ease-in-out infinite alternate',
+                    },
+                    keyframes: {
+                        glow: {
+                            '0%': { boxShadow: '0 0 10px rgba(34, 211, 238, 0.2)' },
+                            '100%': { boxShadow: '0 0 25px rgba(168, 85, 247, 0.6)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="text-gray-200 font-sans antialiased min-h-screen flex flex-col selection:bg-accent selection:text-white relative z-0">
+
+    <!-- Фоновое изображение и затемняющий оверлей -->
+    <div class="fixed inset-0 bg-[url('./world_map.png')] bg-cover bg-center bg-no-repeat bg-fixed z-[-2]"></div>
+    <div class="fixed inset-0 bg-black/70 backdrop-blur-[2px] z-[-1]"></div> <!-- Затемнение 70%, чтобы читался текст -->
+
+    <!-- Header -->
+    <header class="w-full border-b border-white/10 bg-black/30 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-black text-white tracking-widest flex items-center gap-3">
+                <img src="./vortex.ico" alt="Vortex Logo" class="w-7 h-7 filter drop-shadow-[0_0_8px_rgba(168,85,247,0.8)]">
+                VORTEX
+            </div>
+            <a href="https://t.me/vortex_gpn_bot" target="_blank" rel="noopener noreferrer" 
+               class="text-sm font-medium text-gray-300 hover:text-white transition-colors border border-white/20 hover:border-cyanAccent rounded-md px-5 py-2 bg-white/5 backdrop-blur-sm">
+                Поддержка
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow flex flex-col justify-center items-center relative z-10 py-12">
+        
+        <!-- Hero Section -->
+        <section class="w-full max-w-4xl mx-auto px-6 text-center flex flex-col items-center">
+            <div class="inline-block mb-6 px-4 py-1.5 rounded-full border border-cyanAccent/30 bg-cyanAccent/10 text-cyanAccent text-xs font-bold tracking-widest uppercase shadow-[0_0_15px_rgba(34,211,238,0.2)]">
+                Релиз 3.2 // Anti-Shaping Ready
+            </div>
+            
+            <h1 class="text-5xl md:text-7xl font-extrabold text-white mb-6 leading-tight uppercase tracking-wider drop-shadow-lg">
+                Твой пинг под <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyanAccent to-accent">
+                    Абсолютным Контролем
+                </span>
+            </h1>
+            
+            <p class="text-lg md:text-xl text-gray-300 mb-12 max-w-2xl drop-shadow-md">
+                Забудь про разрывы соединения и потерю пакетов. Умная маршрутизация трафика для хардкорного гейминга.
+            </p>
+            
+            <!-- Блок с двумя кнопками выбора -->
+            <div class="flex flex-col sm:flex-row gap-6 w-full sm:w-auto justify-center items-center">
+                
+                <!-- Кнопка Windows -->
+                <button id="btn-win" class="w-full sm:w-64 bg-white/10 hover:bg-white/20 border border-white/20 hover:border-cyanAccent text-white font-bold text-lg px-6 py-4 rounded-xl transition-all duration-300 backdrop-blur-md animate-glow flex flex-col items-center justify-center gap-2 group">
+                    <svg class="w-8 h-8 text-cyanAccent group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M0,3.449L9.75,2.101V11.5H0V3.449z M10.25,2.032L24,0.113V11.5H10.25V2.032z M0,12.5H9.75V21.899L0,20.551V12.5z M10.25,12.5H24V23.887L10.25,21.968V12.5z"/></svg>
+                    <span>Скачать для ПК</span>
+                    <span class="text-xs text-gray-400 font-normal uppercase tracking-widest">Windows (.exe)</span>
+                </button>
+
+                <!-- Кнопка Android -->
+                <button id="btn-and" class="w-full sm:w-64 bg-white/10 hover:bg-white/20 border border-white/20 hover:border-accent text-white font-bold text-lg px-6 py-4 rounded-xl transition-all duration-300 backdrop-blur-md animate-glow flex flex-col items-center justify-center gap-2 group">
+                    <svg class="w-8 h-8 text-accent group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M17.523 15.3414c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993.0004.5511-.4482.9997-.9993.9997m-11.046 0c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993 0 .5511-.4482.9997-.9993.9997m11.4045-6.02l1.9973-3.4592a.416.416 0 00-.1517-.5677.416.416 0 00-.5677.1517l-2.0315 3.5186A11.5165 11.5165 0 0012 7.2812c-2.0911 0-4.0494.5574-5.7279 1.5126L4.2406 5.2752a.416.416 0 00-.5677-.1517.416.416 0 00-.1517.5677l1.9973 3.4592C2.6889 11.1867.3432 14.6589 0 18.761h24c-.3436-4.1021-2.6893-7.5743-5.5185-9.6192"/></svg>
+                    <span>Скачать Mobile</span>
+                    <span class="text-xs text-gray-400 font-normal uppercase tracking-widest">Android (.apk)</span>
+                </button>
+
+            </div>
+        </section>
+
+        <!-- Features -->
+        <section class="w-full max-w-7xl mx-auto px-6 py-20">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <div class="bg-black/40 p-8 rounded-2xl border border-white/10 hover:border-cyanAccent/50 transition-all duration-300 backdrop-blur-md">
+                    <div class="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center mb-6 border border-white/10">
+                        <svg class="w-6 h-6 text-cyanAccent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3 tracking-wide">Сплит-туннелинг</h3>
+                    <p class="text-gray-400 leading-relaxed text-sm">
+                        Играй через GPN, пока браузер работает через обычную сеть. Максимальная эффективность без лишней нагрузки.
+                    </p>
+                </div>
+
+                <div class="bg-black/40 p-8 rounded-2xl border border-white/10 hover:border-accent/50 transition-all duration-300 backdrop-blur-md">
+                    <div class="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center mb-6 border border-white/10">
+                        <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3 tracking-wide">Стабильность</h3>
+                    <p class="text-gray-400 leading-relaxed text-sm">
+                        Никаких вылетов из матчей благодаря защите от нестабильных узлов провайдера. Ровный график фреймтайма сети.
+                    </p>
+                </div>
+
+                <div class="bg-black/40 p-8 rounded-2xl border border-white/10 hover:border-cyanAccent/50 transition-all duration-300 backdrop-blur-md">
+                    <div class="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center mb-6 border border-white/10">
+                        <svg class="w-6 h-6 text-cyanAccent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3 tracking-wide">Безопасность</h3>
+                    <p class="text-gray-400 leading-relaxed text-sm">
+                        Шифрование трафика уровня военных стандартов. Защита личных данных от перехвата в любых сетях.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full border-t border-white/10 bg-black/50 py-8 mt-auto relative z-10 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-500">
+            <div class="font-mono tracking-widest">
+                &copy; 2026 VORTEX GPN_
+            </div>
+            <div class="flex gap-6">
+                <a href="#" class="hover:text-white transition-colors">Публичная оферта</a>
+                <a href="mailto:support@data-sync-node.win" class="hover:text-white transition-colors">support@data-sync-node.win</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS Логика (Замыкание воронки) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const botUrl = 'https://t.me/vortex_gpn_bot';
+            const winBtn = document.getElementById('btn-win');
+            const andBtn = document.getElementById('btn-and');
+
+            // Универсальная функция загрузки и редиректа
+            function startFunnel(url, buttonElement, originalContent) {
+                // Блокируем кнопку и показываем анимацию загрузки
+                buttonElement.disabled = true;
+                buttonElement.innerHTML = `
+                    <svg class="animate-spin h-8 w-8 text-white mb-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    <span class="tracking-widest">ПОДГОТОВКА...</span>
+                `;
+
+                // Запуск невидимого скачивания
+                const downloadLink = document.createElement('a');
+                downloadLink.href = url;
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+                document.body.removeChild(downloadLink);
+
+                // Редирект в бота спустя ровно 2 секунды
+                setTimeout(() => {
+                    window.location.href = botUrl;
+                }, 2000);
+            }
+
+            // Слушатель для Windows
+            winBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                startFunnel('https://pub-b23307e33342468e8c637d8704627212.r2.dev/Vortex_GPN_Setup.exe', winBtn, winBtn.innerHTML);
+            });
+
+            // Слушатель для Android
+            andBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                startFunnel('https://pub-b23307e33342468e8c637d8704627212.r2.dev/Vortex_GPN_Android.apk', andBtn, andBtn.innerHTML);
+            });
+        });
+    </script>
+</body>
+</html>
