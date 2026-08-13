@@ -511,7 +511,7 @@
                 console.error("Ошибка загрузки FingerprintJS:", e);
             }
 
-            if(localStorage.getItem('vortex_trial_key')) {
+if(localStorage.getItem('vortex_trial_key')) {
                 formBlock.style.display = 'none';
                 resultBlock.style.display = 'block';
                 keyInput.value = localStorage.getItem('vortex_trial_key');
@@ -521,12 +521,20 @@
                 generateBtn.innerText = 'Анализ устройства...';
                 generateBtn.disabled = true;
 
-                try {
-                    // Получаем уникальный слепок железа
-                    const fp = await fpPromise;
-                    const result = await fp.get();
-                    const visitorId = result.visitorId;
+                let visitorId = "fallback-id";
 
+                try {
+                    // План А: Пытаемся загрузить тяжелый FingerprintJS
+                    const fp = await import('https://openfpcdn.io/fingerprintjs/v4').then(FingerprintJS => FingerprintJS.load());
+                    const result = await fp.get();
+                    visitorId = result.visitorId;
+                } catch (e) {
+                    // План Б: Если сработал AdBlock или антивирус, делаем базовый хеш
+                    console.warn("Система антифрода заблокирована локально, используем базовый слепок.");
+                    visitorId = btoa(navigator.userAgent + screen.width + screen.height).substring(0, 16);
+                }
+
+                try {
                     generateBtn.innerText = 'Связь с узлом...';
 
                     // Реальный запрос на твой бэкенд FastAPI
@@ -553,7 +561,8 @@
                     }
 
                 } catch (error) {
-                    generateBtn.innerText = 'Ошибка сети';
+                    console.error("Ошибка сети API:", error);
+                    generateBtn.innerText = 'Ошибка соединения с сервером';
                     generateBtn.disabled = false;
                 }
             };
