@@ -92,7 +92,7 @@
             <nav class="flex items-center gap-6 text-sm font-medium">
                 <a href="instructions.html" class="text-gray-400 hover:text-white transition-colors">Инструкция</a>
                 <a href="#" id="openOfferBtnHeader" class="text-gray-400 hover:text-white transition-colors hidden md:block">Оферта</a>
-                <a href="#openTrialBtnHeader" class="text-white transition-colors bg-cyanAccent/20 hover:bg-cyanAccent/30 border border-cyanAccent/50 rounded-lg px-4 py-2 shadow-[0_0_10px_rgba(34,211,238,0.1)]">
+                <a href="#trial-section" class="text-white transition-colors bg-cyanAccent/20 hover:bg-cyanAccent/30 border border-cyanAccent/50 rounded-lg px-4 py-2 shadow-[0_0_10px_rgba(34,211,238,0.1)]">
                     3 дня бесплатно
                 </a>
             </nav>
@@ -104,7 +104,7 @@
         <!-- Hero Section -->
         <section class="w-full max-w-5xl mx-auto px-6 py-24 text-center flex flex-col items-center">
             <div class="inline-block px-4 py-1 rounded-full bg-white/5 border border-white/10 text-xs text-gray-400 mb-6 font-mono tracking-widest">
-                <span class="text-green-400 mr-2">●</span>СИСТЕМА ОНЛАЙН
+                <span class="text-green-400 mr-2 animate-pulse">●</span>СИСТЕМА ОНЛАЙН
             </div>
             <h1 class="text-5xl md:text-7xl font-black text-white mb-6 leading-tight uppercase tracking-widest drop-shadow-lg font-montserrat">
                 ТВОЙ ПИНГ ПОД <span class="text-cyanAccent">КОНТРОЛЕМ</span>
@@ -114,8 +114,8 @@
             </p>
             
             <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto justify-center mb-16">
-                <button id="openTrialBtnHero" class="bg-cyanAccent hover:bg-cyanAccent/90 text-black font-bold text-lg px-10 py-4 rounded-xl transition-all shadow-[0_0_20px_rgba(34,211,238,0.4)] hover:shadow-[0_0_30px_rgba(34,211,238,0.6)] flex items-center justify-center gap-2">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                <button id="openTrialBtnHero" class="bg-cyanAccent hover:bg-cyanAccent/90 text-black font-bold text-lg px-10 py-4 rounded-xl transition-all shadow-[0_0_20px_rgba(34,211,238,0.4)] hover:shadow-[0_0_30px_rgba(34,211,238,0.6)] flex items-center justify-center gap-3">
+                    <img src="./vortex.ico" alt="Vortex" class="w-5 h-5 filter brightness-0">
                     3 дня бесплатно
                 </button>
                 <a href="#tariffs" class="bg-white/5 hover:bg-white/10 border border-white/20 hover:border-cyanAccent text-white font-bold text-lg px-10 py-4 rounded-xl transition-all flex items-center justify-center">
@@ -126,7 +126,7 @@
             <!-- Характеристики -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto text-center border-t border-white/5 pt-12">
                 <div>
-                    <div class="text-2xl font-bold text-white mb-1">99.9%</div>
+                    <div class="text-2xl font-bold text-white mb-1">99%</div>
                     <div class="text-xs text-gray-500 uppercase tracking-widest">Аптайм</div>
                 </div>
                 <div>
@@ -163,28 +163,43 @@
             </div>
         </section>
 
-        <!-- Почему VORTEX (3 Карточки) -->
-        <section class="w-full max-w-7xl mx-auto px-6 py-24 border-b border-white/5">
+        <!-- Почему VORTEX (6 Карточек - Баланс Масс-Маркета и Гиков) -->
+        <section class="w-full max-w-7xl mx-auto px-6 py-20 border-b border-white/5">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Почему <span class="text-cyanAccent">VORTEX GPN</span>?</h2>
                 <p class="text-gray-400 max-w-2xl mx-auto">Создан геймерами для геймеров. Максимальная скорость, чистый пинг и полный контроль над сетевым трафиком.</p>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="feature-card p-8 rounded-2xl">
-                    <div class="w-12 h-12 mb-6 bg-white/5 rounded-xl flex items-center justify-center text-cyanAccent border border-white/10"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg></div>
-                    <h3 class="text-xl font-bold text-white mb-3">VLESS Reality</h3>
-                    <p class="text-gray-400 leading-relaxed text-sm">Протокол нового поколения с криптографической защитой. Обеспечивает максимальную стабильность соединения, скрывая тип трафика от сетевого анализа.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="feature-card p-6 rounded-2xl">
+                    <div class="w-10 h-10 mb-4 text-cyanAccent"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg></div>
+                    <h3 class="text-lg font-bold text-white mb-2">VLESS Reality</h3>
+                    <p class="text-sm text-gray-400"><strong class="text-gray-200">Для гиков:</strong> Протокол нового поколения с маскировкой SNI и защитой от DPI. <strong class="text-gray-200">Для всех:</strong> Провайдер не видит, во что ты играешь, поэтому соединение всегда работает на максимальной скорости без просадок.</p>
                 </div>
-                <div class="feature-card p-8 rounded-2xl">
-                    <div class="w-12 h-12 mb-6 bg-white/5 rounded-xl flex items-center justify-center text-cyanAccent border border-white/10"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg></div>
-                    <h3 class="text-xl font-bold text-white mb-3">Умное разделение</h3>
-                    <p class="text-gray-400 leading-relaxed text-sm">Встроенный сплит-туннелинг в клиентах. Игровой трафик идет напрямую для минимального пинга, а остальные программы работают через защищенную сеть.</p>
+                <div class="feature-card p-6 rounded-2xl">
+                    <div class="w-10 h-10 mb-4 text-cyanAccent"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg></div>
+                    <h3 class="text-lg font-bold text-white mb-2">Умное разделение трафика</h3>
+                    <p class="text-sm text-gray-400"><strong class="text-gray-200">Для гиков:</strong> Нативная поддержка сплит-туннелирования. <strong class="text-gray-200">Для всех:</strong> Игры идут через быстрый узел, а твои любимые приложения и банки работают напрямую без переключений.</p>
                 </div>
-                <div class="feature-card p-8 rounded-2xl">
-                    <div class="w-12 h-12 mb-6 bg-white/5 rounded-xl flex items-center justify-center text-cyanAccent border border-white/10"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg></div>
-                    <h3 class="text-xl font-bold text-white mb-3">Мультиплатформенность</h3>
-                    <p class="text-gray-400 leading-relaxed text-sm">Работает на ПК, iOS, macOS и Android. Допускается 2 одновременных подключения с разных сетей (например, домашний интернет и мобильный LTE).</p>
+                <div class="feature-card p-6 rounded-2xl">
+                    <div class="w-10 h-10 mb-4 text-cyanAccent"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg></div>
+                    <h3 class="text-lg font-bold text-white mb-2">Универсальный доступ</h3>
+                    <p class="text-sm text-gray-400"><strong class="text-gray-200">Для гиков:</strong> Чистый конфиг под v2rayN и Shadowrocket. <strong class="text-gray-200">Для всех:</strong> Скачай готовое приложение в один клик или настрой любое устройство на iOS, Mac и Linux за пару минут.</p>
+                </div>
+                <div class="feature-card p-6 rounded-2xl">
+                    <div class="w-10 h-10 mb-4 text-cyanAccent"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg></div>
+                    <h3 class="text-lg font-bold text-white mb-2">Прямой маршрут</h3>
+                    <p class="text-sm text-gray-400"><strong class="text-gray-200">Для гиков:</strong> Минимальное количество транзитных узлов до Европы. <strong class="text-gray-200">Для всех:</strong> Забудь про скачки пинга, телепорты в матчах и долгую загрузку серверов.</p>
+                </div>
+                <div class="feature-card p-6 rounded-2xl">
+                    <div class="w-10 h-10 mb-4 text-cyanAccent"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg></div>
+                    <h3 class="text-lg font-bold text-white mb-2">Две сети одновременно</h3>
+                    <p class="text-sm text-gray-400"><strong class="text-gray-200">Для гиков:</strong> Хард-лимит на 2 параллельных IP. <strong class="text-gray-200">Для всех:</strong> Используй подписку сразу на ПК и телефоне — дома через Wi-Fi и в дороге через мобильный интернет без конфликтов.</p>
+                </div>
+                <div class="feature-card p-6 rounded-2xl">
+                    <div class="w-10 h-10 mb-4 text-cyanAccent"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg></div>
+                    <h3 class="text-lg font-bold text-white mb-2">Выделенный канал</h3>
+                    <p class="text-sm text-gray-400"><strong class="text-gray-200">Для гиков:</strong> Порт до 1 Гбит/с на базе Aeza. <strong class="text-gray-200">Для всех:</strong> Играй сутками, качай крупные обновления и смотри стримы на сверхвысокой скорости без ограничений по трафику.</p>
                 </div>
             </div>
         </section>
@@ -220,61 +235,72 @@
             </div>
         </section>
 
-        <!-- Тарифы -->
+        <!-- Тарифы (Понятные выгоды) -->
         <section id="tariffs" class="w-full max-w-6xl mx-auto px-6 py-24 border-t border-white/5">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Простые <span class="text-cyanAccent">тарифы</span></h2>
-                <p class="text-gray-400">Без скрытых платежей. Игровой канал. 2 одновременных подключения.</p>
+                <p class="text-gray-400">Никаких скрытых платежей. Выбирай подходящий период.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- 1 месяц -->
                 <div class="tariff-card p-8 rounded-3xl flex flex-col">
                     <div class="text-gray-400 text-sm font-bold mb-4 uppercase tracking-wider">1 месяц</div>
                     <div class="text-4xl font-black text-white mb-2">350 ₽</div>
                     <div class="text-sm text-gray-500 mb-8 border-b border-white/5 pb-6">~ 3.5 USDT</div>
                     <ul class="text-sm text-gray-300 space-y-4 mb-8 flex-grow">
-                        <li class="flex items-center gap-3"><svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Игровой канал</li>
-                        <li class="flex items-center gap-3"><svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> 2 подключения</li>
-                        <li class="flex items-center gap-3"><svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> VLESS Reality</li>
+                        <li class="flex items-center gap-3"><svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Стабильный пинг в играх</li>
+                        <li class="flex items-center gap-3"><svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> ПК + Смартфон одновременно</li>
+                        <li class="flex items-center gap-3"><svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Обход любых блокировок</li>
+                        <li class="flex items-center gap-3"><svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Безлимитный трафик</li>
                     </ul>
                     <a href="https://t.me/vortex_gpn_bot" target="_blank" class="w-full block text-center bg-white/5 hover:bg-cyanAccent/10 border border-white/10 hover:border-cyanAccent text-white font-bold py-3 rounded-xl transition-all">Выбрать</a>
                 </div>
 
+                <!-- 3 месяца -->
                 <div class="tariff-card p-8 rounded-3xl flex flex-col">
                     <div class="text-gray-400 text-sm font-bold mb-4 uppercase tracking-wider">3 месяца <span class="text-cyanAccent font-normal ml-1">(-10%)</span></div>
                     <div class="text-4xl font-black text-white mb-2">950 ₽</div>
                     <div class="text-sm text-gray-500 mb-8 border-b border-white/5 pb-6">~ 9.5 USDT</div>
                     <ul class="text-sm text-gray-300 space-y-4 mb-8 flex-grow">
-                        <li class="flex items-center gap-3"><svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Игровой канал</li>
-                        <li class="flex items-center gap-3"><svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> 2 подключения</li>
-                        <li class="flex items-center gap-3"><svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> VLESS Reality</li>
+                        <li class="flex items-center gap-3"><svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Стабильный пинг в играх</li>
+                        <li class="flex items-center gap-3"><svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> ПК + Смартфон одновременно</li>
+                        <li class="flex items-center gap-3"><svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Обход любых блокировок</li>
+                        <li class="flex items-center gap-3"><svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Безлимитный трафик</li>
                     </ul>
                     <a href="https://t.me/vortex_gpn_bot" target="_blank" class="w-full block text-center bg-white/5 hover:bg-cyanAccent/10 border border-white/10 hover:border-cyanAccent text-white font-bold py-3 rounded-xl transition-all">Выбрать</a>
                 </div>
 
+                <!-- 6 месяцев -->
                 <div class="tariff-card p-8 rounded-3xl flex flex-col">
                     <div class="text-gray-400 text-sm font-bold mb-4 uppercase tracking-wider">6 месяцев <span class="text-cyanAccent font-normal ml-1">(-20%)</span></div>
                     <div class="text-4xl font-black text-white mb-2">1 700 ₽</div>
                     <div class="text-sm text-gray-500 mb-8 border-b border-white/5 pb-6">~ 16 USDT</div>
                     <ul class="text-sm text-gray-300 space-y-4 mb-8 flex-grow">
-                        <li class="flex items-center gap-3"><svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Игровой канал</li>
-                        <li class="flex items-center gap-3"><svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> 2 подключения</li>
-                        <li class="flex items-center gap-3"><svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> VLESS Reality</li>
+                        <li class="flex items-center gap-3"><svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Стабильный пинг в играх</li>
+                        <li class="flex items-center gap-3"><svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> ПК + Смартфон одновременно</li>
+                        <li class="flex items-center gap-3"><svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Обход любых блокировок</li>
+                        <li class="flex items-center gap-3"><svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Безлимитный трафик</li>
                     </ul>
                     <a href="https://t.me/vortex_gpn_bot" target="_blank" class="w-full block text-center bg-white/5 hover:bg-cyanAccent/10 border border-white/10 hover:border-cyanAccent text-white font-bold py-3 rounded-xl transition-all">Выбрать</a>
                 </div>
 
+                <!-- 12 месяцев -->
                 <div class="tariff-card p-8 rounded-3xl flex flex-col border border-accent/50 relative shadow-[0_0_20px_rgba(168,85,247,0.1)]">
                     <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-accent text-white text-xs font-bold px-4 py-1 rounded-full uppercase tracking-wider">Макс. Выгода</div>
                     <div class="text-accent text-sm font-bold mb-4 uppercase tracking-wider mt-2">12 месяцев <span class="text-white font-normal ml-1">(-30%)</span></div>
                     <div class="text-4xl font-black text-white mb-2">2 900 ₽</div>
                     <div class="text-sm text-gray-500 mb-8 border-b border-white/5 pb-6">~ 28 USDT</div>
                     <ul class="text-sm text-gray-300 space-y-4 mb-8 flex-grow">
-                        <li class="flex items-center gap-3"><svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Игровой канал</li>
-                        <li class="flex items-center gap-3"><svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> 2 подключения</li>
-                        <li class="flex items-center gap-3"><svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> VLESS Reality</li>
+                        <li class="flex items-center gap-3"><svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Стабильный пинг в играх</li>
+                        <li class="flex items-center gap-3"><svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> ПК + Смартфон одновременно</li>
+                        <li class="flex items-center gap-3"><svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Обход любых блокировок</li>
+                        <li class="flex items-center gap-3"><svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Безлимитный трафик</li>
                     </ul>
-                    <a href="https://t.me/vortex_gpn_bot" target="_blank" class="w-full block text-center bg-accent hover:bg-accent/90 text-white font-bold py-3 rounded-xl transition-all shadow-[0_0_15px_rgba(168,85,247,0.4)]">Выбрать 🔥</a>
+                    <a href="https://t.me/vortex_gpn_bot" target="_blank" class="w-full flex items-center justify-center gap-2 bg-accent hover:bg-accent/90 text-white font-bold py-3 rounded-xl transition-all shadow-[0_0_15px_rgba(168,85,247,0.4)]">
+                        Выбрать 
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </a>
                 </div>
             </div>
         </section>
@@ -318,30 +344,6 @@
             &copy; 2026 VORTEX GPN
         </div>
     </footer>
-
-    <!-- Модальное окно: Триал -->
-    <div id="trialModal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal" id="closeTrial">&times;</span>
-            <h2 class="text-2xl font-bold text-white mb-2">Тестовый доступ</h2>
-            <p class="text-gray-400 text-sm mb-6">Сгенерируй стартовый ключ на 3 дня, чтобы получить доступ к сети GPN.</p>
-            
-            <div id="trialFormBlock">
-                <button id="generateTrialBtn" class="w-full bg-cyanAccent/20 hover:bg-cyanAccent/30 border border-cyanAccent text-cyanAccent font-bold py-3 px-4 rounded-lg transition-colors">
-                    Сгенерировать ключ
-                </button>
-            </div>
-            
-            <div id="trialResultBlock" class="hidden mt-4 text-left bg-black/50 p-4 border border-white/10 rounded-lg">
-                <p class="text-xs text-green-400 mb-2 font-mono uppercase tracking-widest">Ключ успешно создан</p>
-                <div class="flex gap-2">
-                    <input type="text" id="vlessKey" class="w-full bg-transparent border-b border-white/20 text-white text-sm outline-none font-mono" readonly value="vless://загрузка...">
-                    <button id="copyKeyBtn" class="bg-white/10 hover:bg-white/20 px-3 py-1 rounded text-xs transition-colors border border-white/10">Копировать</button>
-                </div>
-                <p class="text-xs text-gray-500 mt-3">Открой приложение Vortex, перейди в буфер обмена и импортируй профиль.</p>
-            </div>
-        </div>
-    </div>
 
     <!-- Модальное окно: Оферта -->
     <div id="offerModal" class="modal">
@@ -405,6 +407,30 @@
                 БИК: 044525411<br>
                 Корр. счет: 30101810145250000411<br>
                 Контактный Email: support@data-sync-node.win</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно: Триал -->
+    <div id="trialModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeTrial">&times;</span>
+            <h2 class="text-2xl font-bold text-white mb-2">Тестовый доступ</h2>
+            <p class="text-gray-400 text-sm mb-6">Сгенерируй стартовый ключ на 3 дня, чтобы получить доступ к сети GPN.</p>
+            
+            <div id="trialFormBlock">
+                <button id="generateTrialBtn" class="w-full bg-cyanAccent/20 hover:bg-cyanAccent/30 border border-cyanAccent text-cyanAccent font-bold py-3 px-4 rounded-lg transition-colors">
+                    Сгенерировать ключ
+                </button>
+            </div>
+            
+            <div id="trialResultBlock" class="hidden mt-4 text-left bg-black/50 p-4 border border-white/10 rounded-lg">
+                <p class="text-xs text-green-400 mb-2 font-mono uppercase tracking-widest">Ключ успешно создан</p>
+                <div class="flex gap-2">
+                    <input type="text" id="vlessKey" class="w-full bg-transparent border-b border-white/20 text-white text-sm outline-none font-mono" readonly value="vless://загрузка...">
+                    <button id="copyKeyBtn" class="bg-white/10 hover:bg-white/20 px-3 py-1 rounded text-xs transition-colors border border-white/10">Копировать</button>
+                </div>
+                <p class="text-xs text-gray-500 mt-3">Открой приложение Vortex, перейди в буфер обмена и импортируй профиль.</p>
             </div>
         </div>
     </div>
