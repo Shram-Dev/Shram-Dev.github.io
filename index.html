@@ -436,9 +436,13 @@
     </div>
 
     <!-- Скрипты -->
-    <script>
+<script>
         document.addEventListener('DOMContentLoaded', () => {
             const botUrl = 'https://t.me/vortex_gpn_bot';
+            
+            // ВАЖНО: Здесь будет твой домен, пропущенный через Cloudflare!
+            // Если домена пока нет, работать с GitHub Pages не будет из-за Mixed Content.
+            const API_URL = 'https://api.ТВОЙ_ДОМЕН.win/generate_trial'; 
             
             function startFunnel(url, buttonElement) {
                 buttonElement.disabled = true;
@@ -500,27 +504,59 @@
             const keyInput = document.getElementById('vlessKey');
             const copyBtn = document.getElementById('copyKeyBtn');
 
+            // Загрузка тяжелого Open-Source FingerprintJS
+            let fpPromise = null;
+            try {
+                fpPromise = import('https://openfpcdn.io/fingerprintjs/v4').then(FingerprintJS => FingerprintJS.load());
+            } catch (e) {
+                console.error("Ошибка загрузки FingerprintJS:", e);
+            }
+
             if(localStorage.getItem('vortex_trial_key')) {
                 formBlock.style.display = 'none';
                 resultBlock.style.display = 'block';
                 keyInput.value = localStorage.getItem('vortex_trial_key');
             }
 
-            const generateFingerprint = () => btoa(navigator.userAgent + screen.width).substring(0, 16);
-
             generateBtn.onclick = async () => {
-                const fingerprint = generateFingerprint();
-                generateBtn.innerText = 'Связь с узлом...';
+                generateBtn.innerText = 'Анализ устройства...';
                 generateBtn.disabled = true;
 
-                setTimeout(() => {
-                    const fakeKey = "vless://test-trial-" + fingerprint + "@vps.data-sync-node.win:48201?security=reality&type=tcp";
-                    localStorage.setItem('vortex_trial_key', fakeKey);
-                    
-                    formBlock.style.display = 'none';
-                    resultBlock.style.display = 'block';
-                    keyInput.value = fakeKey;
-                }, 1500);
+                try {
+                    // Получаем уникальный слепок железа
+                    const fp = await fpPromise;
+                    const result = await fp.get();
+                    const visitorId = result.visitorId;
+
+                    generateBtn.innerText = 'Связь с узлом...';
+
+                    // Реальный запрос на твой бэкенд FastAPI
+                    const response = await fetch(API_URL, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ fingerprint: visitorId })
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok && data.success) {
+                        localStorage.setItem('vortex_trial_key', data.vless_link);
+                        formBlock.style.display = 'none';
+                        resultBlock.style.display = 'block';
+                        keyInput.value = data.vless_link;
+                    } else {
+                        // Если Абуз или ошибка сервера
+                        generateBtn.innerText = data.detail || 'Ошибка генерации';
+                        generateBtn.classList.add('bg-red-500/20', 'text-red-400', 'border-red-500');
+                        generateBtn.classList.remove('bg-cyanAccent/20', 'text-cyanAccent', 'border-cyanAccent');
+                    }
+
+                } catch (error) {
+                    generateBtn.innerText = 'Ошибка сети';
+                    generateBtn.disabled = false;
+                }
             };
 
             copyBtn.onclick = () => {
