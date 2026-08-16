@@ -462,34 +462,36 @@
             // ВАЖНО: Здесь вписан твой боевой домен, пропущенный через Cloudflare!
             const API_URL = 'https://api.data-sync-node.win/generate_trial'; 
             
-            function startFunnel(url, buttonElement) {
-                buttonElement.disabled = true;
-                const originalHtml = buttonElement.innerHTML;
-                buttonElement.innerHTML = `
-                    <svg class="animate-spin h-8 w-8 text-white mb-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    <span class="tracking-widest text-sm">ПОДГОТОВКА...</span>
-                `;
-                const downloadLink = document.createElement('a');
-                downloadLink.href = url;
-                document.body.appendChild(downloadLink);
-                downloadLink.click();
-                document.body.removeChild(downloadLink);
-                
-                setTimeout(() => { window.location.href = botUrl; }, 2000);
-                setTimeout(() => { buttonElement.disabled = false; buttonElement.innerHTML = originalHtml; }, 4000);
-            }
+           function startFunnel(url, buttonElement) {
+        buttonElement.disabled = true;
+        const originalHtml = buttonElement.innerHTML;
+        buttonElement.innerHTML = `
+            <svg class="animate-spin h-8 w-8 text-white mb-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <span class="tracking-widest text-sm">ЗАГРУЗКА...</span>
+        `;
+        
+        const downloadLink = document.createElement('a');
+        downloadLink.href = url;
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+        
+        // Редирект в ТГ удален. Кнопка просто возвращается в исходный вид через 3 секунды.
+        setTimeout(() => { buttonElement.disabled = false; buttonElement.innerHTML = originalHtml; }, 3000);
+    }
 
-           document.getElementById('btn-win').addEventListener('click', function(e) {
-                e.preventDefault();
-                startFunnel('https://pub-b23307e33342468e8c637d8704627212.r2.dev/Vortex_GPN_Setup.exe', this);
-            });
-            document.getElementById('btn-and').addEventListener('click', function(e) {
-                e.preventDefault();
-                startFunnel('https://pub-b23307e33342468e8c637d8704627212.r2.dev/Vortex_GPN_Android.apk', this);
-            });
+    document.getElementById('btn-win').addEventListener('click', function(e) {
+        e.preventDefault();
+        startFunnel('https://pub-b23307e33342468e8c637d8704627212.r2.dev/Vortex_GPN_Setup.exe', this);
+    });
+    
+    document.getElementById('btn-and').addEventListener('click', function(e) {
+        e.preventDefault();
+        startFunnel('https://pub-b23307e33342468e8c637d8704627212.r2.dev/Vortex_GPN_Android.apk', this);
+    });
 
             function setupModal(triggerIds, modalId, closeId) {
                 const modal = document.getElementById(modalId);
