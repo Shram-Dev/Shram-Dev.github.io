@@ -30,13 +30,31 @@
             transition: border-color 0.3s;
         }
         .step-card:hover { border-color: rgba(34, 211, 238, 0.3); }
-        .step-img { border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; max-height: 400px; object-fit: contain; background: #000; }
+        .step-img { 
+            border: 1px solid rgba(255,255,255,0.1); 
+            border-radius: 12px; 
+            max-height: 400px; 
+            object-fit: contain; 
+            background: #000; 
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .step-img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 15px rgba(34, 211, 238, 0.3);
+        }
     </style>
 </head>
 <body class="text-gray-200 font-sans antialiased min-h-screen flex flex-col relative z-0">
     
     <div class="fixed inset-0 bg-[url('./world_map.png')] bg-cover bg-center bg-no-repeat bg-fixed z-[-2] opacity-20"></div>
     <div class="fixed inset-0 bg-darkBg/90 backdrop-blur-[2px] z-[-1]"></div> 
+
+    <!-- Fullscreen Image Modal (Lightbox) -->
+    <div id="imageModal" class="fixed inset-0 z-[100] hidden bg-black/95 backdrop-blur-md flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+        <span class="absolute top-6 right-8 text-white text-5xl cursor-pointer hover:text-cyanAccent transition-colors" onclick="closeModal()">&times;</span>
+        <img id="modalImage" class="max-w-[90vw] max-h-[90vh] rounded-xl shadow-[0_0_40px_rgba(168,85,247,0.3)] border border-white/10" src="">
+    </div>
 
     <!-- Header -->
     <header class="w-full border-b border-white/5 bg-darkCard/50 backdrop-blur-md sticky top-0 z-50">
@@ -91,30 +109,41 @@
             <div class="step-card p-8 rounded-3xl">
                 <div class="flex items-center gap-4 mb-6">
                     <div class="w-10 h-10 rounded-full bg-accent/20 text-accent font-black flex items-center justify-center text-xl">3</div>
-                    <h2 class="text-2xl font-bold text-white">Умные исключения (Direct)</h2>
+                    <h2 class="text-2xl font-bold text-white">Умные исключения (Direct / Bypass)</h2>
                 </div>
-                <p class="text-gray-300 mb-6 leading-relaxed">
-                    Это ключевая фишка Vortex. Если какой-то локальный сайт работает некорректно через GPN, или в любимой игре пинг кажется вам высоковатым — направьте их трафик напрямую (в обход GPN). Нажмите кнопку <strong>«Исключения GPN» (Y-образная стрелка)</strong> и выберите «Добавить».
+                <p class="text-gray-300 mb-4 leading-relaxed">
+                    Это ключевая фишка Vortex. Вы можете направить трафик конкретных сервисов напрямую через вашего домашнего провайдера, в обход GPN. Вы сами придумываете понятные названия для правил. Достаточно вписать домен сайта или исполняемый файл игры (система автоматически распределит их).
                 </p>
-                
-                <div class="bg-black/40 border border-accent/20 p-5 rounded-xl mb-6">
-                    <h3 class="text-accent font-bold mb-2 flex items-center gap-2">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <p class="text-gray-300 mb-6 leading-relaxed">
+                    На Android логика еще удобнее: в разделе <strong>Bypass</strong> просто отметьте галочками локальные приложения (Т-Банк, Сбербанк, Ozon и др.), чтобы они работали напрямую, не отключая общую защиту устройства.
+                </p>
+
+                <div class="bg-black/40 border border-accent/20 p-6 rounded-xl mb-8">
+                    <h3 class="text-accent font-bold mb-3 flex items-center gap-2 text-lg">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                         Лайфхак с ChatGPT
                     </h3>
-                    <p class="text-sm text-gray-400">
-                        В поле процессов можно вписывать как адреса сайтов (например, <code>vk.com</code>), так и исполняемые файлы игр. Часто достаточно просто указать <code>MonsterHunterWorld.exe</code>. Но у некоторых онлайн-игр сложная сетевая архитектура. Просто спросите у любой нейросети: <em>«Какие домены и процессы нужно добавить в исключения прокси для [название игры]?»</em> — и скопируйте результат сюда.
+                    <p class="text-sm text-gray-300 leading-relaxed">
+                        Если сайт некорректно работает через GPN, или в игре пинг кажется слишком высоким, а выключать сеть вы не хотите — просто скопируйте и отправьте в ChatGPT или Claude этот промпт:
+                        <br><br>
+                        <code class="bg-black p-2 rounded text-cyanAccent block my-2 border border-white/10">«Какие домены и процессы (.exe) нужно добавить в исключения прокси-клиента для игры [Monster Hunter / Название Игры] или сайта [адрес], чтобы их трафик шел напрямую?»</code>
+                        <br>
+                        Скопируйте полученный ответ в поле процессов (можно списком через пробел). Готово! Игра работает с минимальным пингом напрямую, а остальной ПК остается под защитой.
                     </p>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                     <img src="https://pub-b23307e33342468e8c637d8704627212.r2.dev/%D0%BF%D0%B0%D0%BF%D0%BA%D0%B0%20%D1%81%D0%BE%20%D1%81%D0%BA%D1%80%D0%B8%D0%BD%D0%B0%D0%BC%D0%B8/3.jpg" alt="Кнопка исключений" class="step-img w-full">
-                    <img src="https://pub-b23307e33342468e8c637d8704627212.r2.dev/%D0%BF%D0%B0%D0%BF%D0%BA%D0%B0%20%D1%81%D0%BE%20%D1%81%D0%BA%D1%80%D0%B8%D0%BD%D0%B0%D0%BC%D0%B8/4.jpg" alt="Окно исключений пустое" class="step-img w-full">
+                    <img src="https://pub-b23307e33342468e8c637d8704627212.r2.dev/%D0%BF%D0%B0%D0%BF%D0%BA%D0%B0%20%D1%81%D0%BE%20%D1%81%D0%BA%D1%80%D0%B8%D0%BD%D0%B0%D0%BC%D0%B8/4_2.jpg" alt="Окно исключений пустое" class="step-img w-full">
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <img src="https://pub-b23307e33342468e8c637d8704627212.r2.dev/%D0%BF%D0%B0%D0%BF%D0%BA%D0%B0%20%D1%81%D0%BE%20%D1%81%D0%BA%D1%80%D0%B8%D0%BD%D0%B0%D0%BC%D0%B8/5.jpg" alt="Добавление исключения" class="step-img w-full">
-                    <img src="https://pub-b23307e33342468e8c637d8704627212.r2.dev/%D0%BF%D0%B0%D0%BF%D0%BA%D0%B0%20%D1%81%D0%BE%20%D1%81%D0%BA%D1%80%D0%B8%D0%BD%D0%B0%D0%BC%D0%B8/6.jpg" alt="Пример Monster Hunter" class="step-img w-full">
-                    <img src="https://pub-b23307e33342468e8c637d8704627212.r2.dev/%D0%BF%D0%B0%D0%BF%D0%BA%D0%B0%20%D1%81%D0%BE%20%D1%81%D0%BA%D1%80%D0%B8%D0%BD%D0%B0%D0%BC%D0%B8/7.jpg" alt="Список исключений" class="step-img w-full">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                    <img src="https://pub-b23307e33342468e8c637d8704627212.r2.dev/%D0%BF%D0%B0%D0%BF%D0%BA%D0%B0%20%D1%81%D0%BE%20%D1%81%D0%BA%D1%80%D0%B8%D0%BD%D0%B0%D0%BC%D0%B8/5_2.jpg" alt="Добавление исключения" class="step-img w-full">
+                    <img src="https://pub-b23307e33342468e8c637d8704627212.r2.dev/%D0%BF%D0%B0%D0%BF%D0%BA%D0%B0%20%D1%81%D0%BE%20%D1%81%D0%BA%D1%80%D0%B8%D0%BD%D0%B0%D0%BC%D0%B8/6_2.jpg" alt="Пример Monster Hunter" class="step-img w-full">
+                    <img src="https://pub-b23307e33342468e8c637d8704627212.r2.dev/%D0%BF%D0%B0%D0%BF%D0%BA%D0%B0%20%D1%81%D0%BE%20%D1%81%D0%BA%D1%80%D0%B8%D0%BD%D0%B0%D0%BC%D0%B8/7_2.jpg" alt="Список исключений" class="step-img w-full">
+                </div>
+                <!-- Мобильный скриншот по центру -->
+                <div class="flex justify-center mt-6">
+                    <img src="https://pub-b23307e33342468e8c637d8704627212.r2.dev/%D0%BF%D0%B0%D0%BF%D0%BA%D0%B0%20%D1%81%D0%BE%20%D1%81%D0%BA%D1%80%D0%B8%D0%BD%D0%B0%D0%BC%D0%B8/13.jpg" alt="Исключения Android" class="step-img w-full max-w-[280px]">
                 </div>
             </div>
 
@@ -124,17 +153,33 @@
                     <div class="w-10 h-10 rounded-full bg-cyanAccent/20 text-cyanAccent font-black flex items-center justify-center text-xl">4</div>
                     <h2 class="text-2xl font-bold text-white">Решение сетевых сбоев</h2>
                 </div>
-                <p class="text-gray-300 mb-6 leading-relaxed">
-                    Иногда интернет-провайдеры обновляют шлюзы безопасности или происходят кратковременные сбои на магистральных линиях связи, из-за чего соединение может «зависнуть», даже если статус горит подключенным. 
+                <p class="text-gray-300 mb-4 leading-relaxed">
+                    Иногда ваше интернет-соединение может внезапно «зависнуть»: статус горит зеленым, но данные не передаются. 
+                </p>
+                <p class="text-red-300/90 font-medium bg-red-900/20 border border-red-500/30 p-4 rounded-xl mb-6">
+                    <strong>Важно:</strong> Зачастую это не ошибка приложения, а искусственная помеха. Системы глубокой фильтрации трафика (ТСПУ) на магистральных линиях провайдеров могут периодически тестировать блокировки и принудительно обрывать защищенные сессии.
                 </p>
                 <p class="text-gray-300 mb-6 leading-relaxed">
-                    Если интернет внезапно пропал — просто нажмите кнопку <strong>«Обновить подключение» (круговая стрелка)</strong>, а затем переподключитесь. Клиент мгновенно перестроит маршрут до стабильного транзитного узла и восстановит связь.
+                    Если вы столкнулись с такой аномалией, **не нужно переустанавливать клиент**. Достаточно разорвать заблокированную сессию: нажмите кнопку <strong>«Восстановить подключение» (круговая стрелка)</strong> в верхнем меню. Система мгновенно перестроит криптографический туннель и полностью восстановит связь.
                 </p>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <img src="https://pub-b23307e33342468e8c637d8704627212.r2.dev/%D0%BF%D0%B0%D0%BF%D0%BA%D0%B0%20%D1%81%D0%BE%20%D1%81%D0%BA%D1%80%D0%B8%D0%BD%D0%B0%D0%BC%D0%B8/8.jpg" alt="Шаг восстановления 1" class="step-img w-full">
-                    <img src="https://pub-b23307e33342468e8c637d8704627212.r2.dev/%D0%BF%D0%B0%D0%BF%D0%BA%D0%B0%20%D1%81%D0%BE%20%D1%81%D0%BA%D1%80%D0%B8%D0%BD%D0%B0%D0%BC%D0%B8/9.jpg" alt="Шаг восстановления 2" class="step-img w-full">
-                    <img src="https://pub-b23307e33342468e8c637d8704627212.r2.dev/%D0%BF%D0%B0%D0%BF%D0%BA%D0%B0%20%D1%81%D0%BE%20%D1%81%D0%BA%D1%80%D0%B8%D0%BD%D0%B0%D0%BC%D0%B8/10.jpg" alt="Шаг восстановления 3" class="step-img w-full">
-                    <img src="https://pub-b23307e33342468e8c637d8704627212.r2.dev/%D0%BF%D0%B0%D0%BF%D0%BA%D0%B0%20%D1%81%D0%BE%20%D1%81%D0%BA%D1%80%D0%B8%D0%BD%D0%B0%D0%BC%D0%B8/13.jpg" alt="Шаг восстановления 4" class="step-img w-full">
+                
+                <!-- Сетка: Сбой -> Кнопка -> Починка -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+                    <div class="flex flex-col items-center">
+                        <span class="text-xs text-gray-500 mb-2 uppercase tracking-widest">1. Зависание сети</span>
+                        <img src="https://pub-b23307e33342468e8c637d8704627212.r2.dev/%D0%BF%D0%B0%D0%BF%D0%BA%D0%B0%20%D1%81%D0%BE%20%D1%81%D0%BA%D1%80%D0%B8%D0%BD%D0%B0%D0%BC%D0%B8/10.jpg" alt="Сбой сети" class="step-img w-full">
+                    </div>
+                    <div class="flex flex-col items-center relative">
+                        <span class="text-xs text-cyanAccent mb-2 uppercase tracking-widest">2. Сброс сессии</span>
+                        <img src="https://pub-b23307e33342468e8c637d8704627212.r2.dev/%D0%BF%D0%B0%D0%BF%D0%BA%D0%B0%20%D1%81%D0%BE%20%D1%81%D0%BA%D1%80%D0%B8%D0%BD%D0%B0%D0%BC%D0%B8/8.jpg" alt="Кнопка сброса" class="step-img w-full max-w-[200px]">
+                        <!-- Стрелочки для ПК версии -->
+                        <div class="hidden md:block absolute -left-8 top-1/2 text-gray-600">→</div>
+                        <div class="hidden md:block absolute -right-8 top-1/2 text-gray-600">→</div>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <span class="text-xs text-green-500 mb-2 uppercase tracking-widest">3. Связь восстановлена</span>
+                        <img src="https://pub-b23307e33342468e8c637d8704627212.r2.dev/%D0%BF%D0%B0%D0%BF%D0%BA%D0%B0%20%D1%81%D0%BE%20%D1%81%D0%BA%D1%80%D0%B8%D0%BD%D0%B0%D0%BC%D0%B8/9.jpg" alt="Успешное подключение" class="step-img w-full">
+                    </div>
                 </div>
             </div>
 
@@ -148,5 +193,38 @@
         </div>
     </footer>
 
+    <!-- Скрипт для работы Lightbox (Зум картинок) -->
+    <script>
+        function openModal(src) {
+            const modal = document.getElementById('imageModal');
+            const img = document.getElementById('modalImage');
+            img.src = src;
+            modal.classList.remove('hidden');
+            setTimeout(() => modal.classList.remove('opacity-0'), 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            modal.classList.add('opacity-0');
+            setTimeout(() => modal.classList.add('hidden'), 300);
+        }
+
+        // Привязываем функцию ко всем картинкам с классом step-img
+        document.querySelectorAll('.step-img').forEach(img => {
+            img.onclick = () => openModal(img.src);
+        });
+
+        // Закрытие по клику на фон
+        document.getElementById('imageModal').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+
+        // Закрытие по клавише Esc
+        document.addEventListener('keydown', function(e) {
+            if (e.key === "Escape" && !document.getElementById('imageModal').classList.contains('hidden')) {
+                closeModal();
+            }
+        });
+    </script>
 </body>
 </html>
