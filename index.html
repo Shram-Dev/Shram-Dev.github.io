@@ -455,149 +455,93 @@
     </div>
 
     <!-- Скрипты -->
+    <!-- Скрипты -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const botUrl = 'https://t.me/vortex_gpn_bot';
             
-            // ВАЖНО: Здесь вписан твой боевой домен, пропущенный через Cloudflare!
-            const API_URL = 'https://api.data-sync-node.win/generate_trial'; 
-            
-           function startFunnel(url, buttonElement) {
-        buttonElement.disabled = true;
-        const originalHtml = buttonElement.innerHTML;
-        buttonElement.innerHTML = `
-            <svg class="animate-spin h-8 w-8 text-white mb-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-            <span class="tracking-widest text-sm">ЗАГРУЗКА...</span>
-        `;
-        
-        const downloadLink = document.createElement('a');
-        downloadLink.href = url;
-        document.body.appendChild(downloadLink);
-        downloadLink.click();
-        document.body.removeChild(downloadLink);
-        
-        // Редирект в ТГ удален. Кнопка просто возвращается в исходный вид через 3 секунды.
-        setTimeout(() => { buttonElement.disabled = false; buttonElement.innerHTML = originalHtml; }, 3000);
-    }
+            // 1. Авто-открытие оферты по якорю #offer
+            if (window.location.hash === '#offer') {
+                const offerModal = document.getElementById('offerModal');
+                if (offerModal) {
+                    offerModal.style.display = "block";
+                    // Очищаем URL от хеша, чтобы при обновлении страницы окно не висело снова
+                    history.replaceState(null, null, ' '); 
+                }
+            }
 
-    document.getElementById('btn-win').addEventListener('click', function(e) {
-        e.preventDefault();
-        startFunnel('https://pub-b23307e33342468e8c637d8704627212.r2.dev/Vortex_GPN_Setup.exe', this);
-    });
-    
-    document.getElementById('btn-and').addEventListener('click', function(e) {
-        e.preventDefault();
-        startFunnel('https://pub-b23307e33342468e8c637d8704627212.r2.dev/Vortex_GPN_Android.apk', this);
-    });
+            // 2. Прямое скачивание клиентов из R2 (без редиректа в ТГ)
+            function downloadClient(url, buttonElement) {
+                buttonElement.disabled = true;
+                const originalText = buttonElement.innerHTML;
+                buttonElement.innerHTML = `<span class="animate-pulse tracking-widest">ЗАГРУЗКА...</span>`;
+                
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = ''; 
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
 
-            function setupModal(triggerIds, modalId, closeId) {
-                const modal = document.getElementById(modalId);
-                triggerIds.forEach(id => {
-                    const el = document.getElementById(id);
-                    if(el) el.onclick = (e) => { e.preventDefault(); modal.style.display = "block"; };
+                // Возвращаем кнопку в исходное состояние через 3 секунды
+                setTimeout(() => { 
+                    buttonElement.disabled = false; 
+                    buttonElement.innerHTML = originalText; 
+                }, 3000);
+            }
+
+            const btnWin = document.getElementById('btn-win');
+            if (btnWin) {
+                btnWin.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    downloadClient('https://pub-b23307e33342468e8c637d8704627212.r2.dev/Vortex_GPN_Setup.exe', this);
                 });
-                document.getElementById(closeId).onclick = () => { modal.style.display = "none"; };
-                window.addEventListener('click', (e) => { if (e.target == modal) modal.style.display = "none"; });
             }
             
+            const btnAnd = document.getElementById('btn-and');
+            if (btnAnd) {
+                btnAnd.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    downloadClient('https://pub-b23307e33342468e8c637d8704627212.r2.dev/Vortex_GPN_Android.apk', this);
+                });
+            }
+
+            // 3. Логика работы модальных окон
+            function setupModal(triggerIds, modalId, closeId) {
+                const modal = document.getElementById(modalId);
+                if (!modal) return;
+
+                triggerIds.forEach(id => {
+                    const el = document.getElementById(id);
+                    if(el) {
+                        el.onclick = (e) => { 
+                            e.preventDefault(); 
+                            modal.style.display = "block"; 
+                        };
+                    }
+                });
+
+                const closeEl = document.getElementById(closeId);
+                if (closeEl) {
+                    closeEl.onclick = () => { modal.style.display = "none"; };
+                }
+                
+                window.addEventListener('click', (e) => { 
+                    if (e.target == modal) modal.style.display = "none"; 
+                });
+            }
+
+            // Инициализация окон (названия ID взяты из твоей верстки)
             setupModal(['openOfferBtnHeader'], 'offerModal', 'closeOffer');
             setupModal(['openTrialBtnHeader', 'openTrialBtnHero'], 'trialModal', 'closeTrial');
 
-            document.getElementById('copyEmailBtn').addEventListener('click', function(e) {
-                e.preventDefault();
-                navigator.clipboard.writeText('support@data-sync-node.win');
-                const emailText = document.getElementById('emailText');
-                emailText.innerText = 'Email скопирован!';
-                emailText.classList.add('text-green-400');
-                setTimeout(() => {
-                    emailText.innerText = 'support@data-sync-node.win';
-                    emailText.classList.remove('text-green-400');
-                }, 2000);
-            });
-
-            const generateBtn = document.getElementById('generateTrialBtn');
-            const resultBlock = document.getElementById('trialResultBlock');
-            const formBlock = document.getElementById('trialFormBlock');
-            const keyInput = document.getElementById('vlessKey');
-            const copyBtn = document.getElementById('copyKeyBtn');
-
-            // Загрузка тяжелого Open-Source FingerprintJS
-            let fpPromise = null;
-            try {
-                fpPromise = import('https://openfpcdn.io/fingerprintjs/v4').then(FingerprintJS => FingerprintJS.load());
-            } catch (e) {
-                console.error("Ошибка загрузки FingerprintJS:", e);
+            // 4. Копирование Email в буфер обмена
+            const copyEmailBtn = document.getElementById('copyEmailBtn');
+            if (copyEmailBtn) {
+                copyEmailBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    navigator.clipboard.writeText('support@data-sync-node.win');
+                });
             }
-
-if(localStorage.getItem('vortex_trial_key')) {
-                formBlock.style.display = 'none';
-                resultBlock.style.display = 'block';
-                keyInput.value = localStorage.getItem('vortex_trial_key');
-            }
-
-            generateBtn.onclick = async () => {
-                generateBtn.innerText = 'Анализ устройства...';
-                generateBtn.disabled = true;
-
-                let visitorId = "fallback-id";
-
-                try {
-                    // План А: Пытаемся загрузить тяжелый FingerprintJS
-                    const fp = await import('https://openfpcdn.io/fingerprintjs/v4').then(FingerprintJS => FingerprintJS.load());
-                    const result = await fp.get();
-                    visitorId = result.visitorId;
-                } catch (e) {
-                    // План Б: Если сработал AdBlock или антивирус, делаем базовый хеш
-                    console.warn("Система антифрода заблокирована локально, используем базовый слепок.");
-                    visitorId = btoa(navigator.userAgent + screen.width + screen.height).substring(0, 16);
-                }
-
-                try {
-                    generateBtn.innerText = 'Связь с узлом...';
-
-                    // Реальный запрос на твой бэкенд FastAPI
-                    const response = await fetch(API_URL, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ fingerprint: visitorId })
-                    });
-
-                    const data = await response.json();
-
-                    if (response.ok && data.success) {
-                        localStorage.setItem('vortex_trial_key', data.vless_link);
-                        formBlock.style.display = 'none';
-                        resultBlock.style.display = 'block';
-                        keyInput.value = data.vless_link;
-                    } else {
-                        // Если Абуз или ошибка сервера
-                        generateBtn.innerText = data.detail || 'Ошибка генерации';
-                        generateBtn.classList.add('bg-red-500/20', 'text-red-400', 'border-red-500');
-                        generateBtn.classList.remove('bg-cyanAccent/20', 'text-cyanAccent', 'border-cyanAccent');
-                    }
-
-                } catch (error) {
-                    console.error("Ошибка сети API:", error);
-                    generateBtn.innerText = 'Ошибка соединения с сервером';
-                    generateBtn.disabled = false;
-                }
-            };
-
-            copyBtn.onclick = () => {
-                keyInput.select();
-                document.execCommand('copy');
-                copyBtn.innerText = 'СКОПИРОВАНО';
-                copyBtn.classList.add('bg-cyanAccent/50', 'text-white');
-                setTimeout(() => {
-                    copyBtn.innerText = 'Копировать';
-                    copyBtn.classList.remove('bg-cyanAccent/50', 'text-white');
-                }, 2000);
-            };
         });
     </script>
 </body>
