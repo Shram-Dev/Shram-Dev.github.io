@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vortex VPN | Твой интернет без границ</title>
+    <meta name="description" content="Vortex VPN на VLESS Reality: 3 дня бесплатно, затем подписка в Telegram. Стабильный доступ к сервисам, умная маршрутизация и авто-восстановление маршрутов.">
+    <meta property="og:title" content="Vortex VPN | Твой интернет без границ">
+    <meta property="og:description" content="3 дня бесплатно на VLESS Reality. Проверь скорость и стабильность — если зайдёт, оформи подписку в Telegram-боте.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="./vortex.ico">
+    <meta name="theme-color" content="#0f0f13">
     
     <link rel="icon" type="image/x-icon" href="./vortex.ico">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet">
@@ -79,7 +85,7 @@
 </head>
 <body class="text-gray-200 font-sans antialiased min-h-screen flex flex-col selection:bg-accent selection:text-white relative z-0">
 
-    <div class="fixed inset-0 bg-[url('./world_map.png')] bg-cover bg-center bg-no-repeat bg-fixed z-[-2] opacity-30"></div>
+    <div class="fixed inset-0 bg-[url('./world_map.webp')] bg-cover bg-center bg-no-repeat bg-fixed z-[-2] opacity-30"></div>
     <div class="fixed inset-0 bg-darkBg/90 backdrop-blur-[2px] z-[-1]"></div> 
 
     <!-- Header -->
@@ -91,7 +97,7 @@
             </div>
             <nav class="flex items-center gap-6 text-sm font-medium">
                 <a href="instructions.html" class="text-gray-400 hover:text-white transition-colors">Инструкция</a>
-                <a href="#" id="openOfferBtnHeader" class="text-gray-400 hover:text-white transition-colors hidden md:block">Terms of Service</a>
+                <a href="#" id="openOfferBtnHeader" class="text-gray-400 hover:text-white transition-colors hidden md:block">Оферта</a>
                 <button id="openTrialBtnHeader" class="text-white transition-colors bg-cyanAccent/20 hover:bg-cyanAccent/30 border border-cyanAccent/50 rounded-lg px-4 py-2 shadow-[0_0_10px_rgba(34,211,238,0.1)]">
                     3 дня бесплатно
                 </button>
@@ -110,10 +116,10 @@
                 ТВОЙ ИНТЕРНЕТ <span class="text-cyanAccent">БЕЗ ГРАНИЦ</span>
             </h1>
             <p class="text-lg md:text-xl text-gray-400 mb-10 max-w-2xl">
-                Непробиваемый протокол VLESS Reality. Стабильный доступ к YouTube, Instagram и любым сервисам на максимальной скорости.
+                Протокол VLESS Reality с маскировкой под обычный HTTPS. Стабильный доступ к YouTube, Instagram и другим сервисам — с авто-восстановлением маршрутов при сбоях.
             </p>
             
-            <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto justify-center mb-14">
+            <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto justify-center mb-4">
                 <button id="openTrialBtnHero" class="bg-cyanAccent hover:bg-cyanAccent/90 text-black font-bold text-lg px-8 py-3.5 rounded-xl transition-all shadow-[0_0_20px_rgba(34,211,238,0.4)] hover:shadow-[0_0_30px_rgba(34,211,238,0.6)] flex items-center justify-center gap-3">
                     <svg class="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                     3 дня бесплатно
@@ -122,6 +128,9 @@
                     Тарифы от 350 ₽
                 </a>
             </div>
+            <p class="text-sm text-gray-500 mb-14 max-w-lg">
+                Схема простая: 3 дня на сайте → проверяешь → если зашло, оформляешь подписку в Telegram-боте.
+            </p>
 
             <!-- Характеристики -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto text-center border-t border-white/5 pt-10">
@@ -138,8 +147,8 @@
                     <div class="text-xs text-gray-500 uppercase tracking-widest">Протокол</div>
                 </div>
                 <div>
-                    <div class="text-2xl font-bold text-green-400 mb-1">100%</div>
-                    <div class="text-xs text-gray-500 uppercase tracking-widest">Без блокировок</div>
+                    <div class="text-2xl font-bold text-green-400 mb-1">Авто</div>
+                    <div class="text-xs text-gray-500 uppercase tracking-widest">Ротация маршрутов</div>
                 </div>
             </div>
         </section>
@@ -160,6 +169,10 @@
                         <span class="text-xs text-gray-500 font-normal tracking-widest">ANDROID (.APK)</span>
                     </button>
                 </div>
+                <p class="text-sm text-gray-500 mt-6 max-w-xl mx-auto">
+                    iOS, macOS и Linux — через любой VLESS-клиент (Shadowrocket, NekoBox, v2rayN и др.): импортируй смарт-ссылку из бота.
+                    Пошагово — в <a href="instructions.html" class="text-cyanAccent hover:underline">инструкции</a>.
+                </p>
             </div>
         </section>
 
@@ -174,7 +187,7 @@
                 <div class="feature-card p-6 rounded-2xl">
                     <div class="w-10 h-10 mb-4 text-cyanAccent"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg></div>
                     <h3 class="text-lg font-bold text-white mb-2">VLESS Reality</h3>
-                    <p class="text-sm text-gray-400"><strong class="text-gray-200">Для гиков:</strong> Протокол нового поколения с маскировкой SNI. Трафик неотличим от обычного HTTPS-запроса. <strong class="text-gray-200">Для всех:</strong> Ваш провайдер не видит, что вы используете VPN. Никаких искусственных замедлений, обрывов и блокировок со стороны РКН.</p>
+                    <p class="text-sm text-gray-400"><strong class="text-gray-200">Для гиков:</strong> VLESS Reality с маскировкой SNI — трафик выглядит как обычный HTTPS. При блокировке система сама ротирует SNI и порт. <strong class="text-gray-200">Для всех:</strong> Провайдеру сложнее отличить VPN от обычного сайта. Меньше искусственных замедлений и обрывов; при сбоях маршруты поднимаются автоматически.</p>
                 </div>
                 <div class="feature-card p-6 rounded-2xl">
                     <div class="w-10 h-10 mb-4 text-cyanAccent"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg></div>
@@ -189,7 +202,7 @@
                 <div class="feature-card p-6 rounded-2xl">
                     <div class="w-10 h-10 mb-4 text-cyanAccent"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg></div>
                     <h3 class="text-lg font-bold text-white mb-2">Свобода без границ</h3>
-                    <p class="text-sm text-gray-400"><strong class="text-gray-200">Для гиков:</strong> Маршрутизация через топовые дата-центры Европы. <strong class="text-gray-200">Для всех:</strong> Забудь про зависающий YouTube, неработающий Instagram, потерю пакетов и долгие загрузки.</p>
+                    <p class="text-sm text-gray-400"><strong class="text-gray-200">Для гиков:</strong> Маршрутизация через дата-центры Европы (Швеция / Нидерланды). <strong class="text-gray-200">Для всех:</strong> YouTube, Instagram и игры работают стабильнее — меньше буферизации и обрывов на типичных блокировках.</p>
                 </div>
                 <div class="feature-card p-6 rounded-2xl">
                     <div class="w-10 h-10 mb-4 text-cyanAccent"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg></div>
@@ -249,13 +262,13 @@
                     <div class="text-3xl font-black text-white mb-2">350 ₽</div>
                     <div class="text-sm text-gray-500 mb-6 border-b border-white/5 pb-4">~ 3.5 USDT</div>
                     <ul class="text-sm text-gray-300 space-y-3 mb-6 flex-grow">
-                        <li class="flex items-center gap-3"><svg class="w-4 h-4 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Стабильный доступ ко всем сайтам</li>
+                        <li class="flex items-center gap-3"><svg class="w-4 h-4 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Стабильный доступ к сервисам</li>
                         <li class="flex items-center gap-3"><svg class="w-4 h-4 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> ПК + Смартфон одновременно</li>
-                        <li class="flex items-center gap-3"><svg class="w-4 h-4 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Защита от блокировок</li>
+                        <li class="flex items-center gap-3"><svg class="w-4 h-4 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Авто-ротация при блокировках</li>
                         <li class="flex items-center gap-3"><svg class="w-4 h-4 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Скорость до 1 Гбит/с</li>
-                        <li class="flex items-center gap-3"><svg class="w-4 h-4 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> 2 IP-адреса</li>
+                        <li class="flex items-center gap-3"><svg class="w-4 h-4 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> До 2 одновременных IP</li>
                     </ul>
-                    <a href="https://t.me/vortex_start_bot" target="_blank" class="w-full block text-center bg-white/5 hover:bg-cyanAccent/10 border border-white/10 hover:border-cyanAccent text-white font-bold py-3 rounded-xl transition-all">Выбрать</a>
+                    <a href="https://t.me/vortex_start_bot" target="_blank" rel="noopener noreferrer" class="w-full block text-center bg-white/5 hover:bg-cyanAccent/10 border border-white/10 hover:border-cyanAccent text-white font-bold py-3 rounded-xl transition-all">Оформить в боте</a>
                 </div>
 
                 <!-- 3 месяца -->
@@ -264,13 +277,13 @@
                     <div class="text-3xl font-black text-white mb-2">950 ₽</div>
                     <div class="text-sm text-gray-500 mb-6 border-b border-white/5 pb-4">~ 9.5 USDT</div>
                     <ul class="text-sm text-gray-300 space-y-3 mb-6 flex-grow">
-                        <li class="flex items-center gap-3"><svg class="w-4 h-4 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Стабильный доступ ко всем сайтам</li>
+                        <li class="flex items-center gap-3"><svg class="w-4 h-4 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Стабильный доступ к сервисам</li>
                         <li class="flex items-center gap-3"><svg class="w-4 h-4 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> ПК + Смартфон одновременно</li>
-                        <li class="flex items-center gap-3"><svg class="w-4 h-4 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Защита от блокировок</li>
+                        <li class="flex items-center gap-3"><svg class="w-4 h-4 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Авто-ротация при блокировках</li>
                         <li class="flex items-center gap-3"><svg class="w-4 h-4 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Скорость до 1 Гбит/с</li>
-                        <li class="flex items-center gap-3"><svg class="w-4 h-4 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> 2 IP-адреса</li>
+                        <li class="flex items-center gap-3"><svg class="w-4 h-4 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> До 2 одновременных IP</li>
                     </ul>
-                    <a href="https://t.me/vortex_start_bot" target="_blank" class="w-full block text-center bg-white/5 hover:bg-cyanAccent/10 border border-white/10 hover:border-cyanAccent text-white font-bold py-3 rounded-xl transition-all">Выбрать</a>
+                    <a href="https://t.me/vortex_start_bot" target="_blank" rel="noopener noreferrer" class="w-full block text-center bg-white/5 hover:bg-cyanAccent/10 border border-white/10 hover:border-cyanAccent text-white font-bold py-3 rounded-xl transition-all">Оформить в боте</a>
                 </div>
 
                 <!-- 6 месяцев -->
@@ -279,13 +292,13 @@
                     <div class="text-3xl font-black text-white mb-2">1 700 ₽</div>
                     <div class="text-sm text-gray-500 mb-6 border-b border-white/5 pb-4">~ 16 USDT</div>
                     <ul class="text-sm text-gray-300 space-y-3 mb-6 flex-grow">
-                        <li class="flex items-center gap-3"><svg class="w-4 h-4 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Стабильный доступ ко всем сайтам</li>
+                        <li class="flex items-center gap-3"><svg class="w-4 h-4 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Стабильный доступ к сервисам</li>
                         <li class="flex items-center gap-3"><svg class="w-4 h-4 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> ПК + Смартфон одновременно</li>
-                        <li class="flex items-center gap-3"><svg class="w-4 h-4 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Защита от блокировок</li>
+                        <li class="flex items-center gap-3"><svg class="w-4 h-4 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Авто-ротация при блокировках</li>
                         <li class="flex items-center gap-3"><svg class="w-4 h-4 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Скорость до 1 Гбит/с</li>
-                        <li class="flex items-center gap-3"><svg class="w-4 h-4 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> 2 IP-адреса</li>
+                        <li class="flex items-center gap-3"><svg class="w-4 h-4 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> До 2 одновременных IP</li>
                     </ul>
-                    <a href="https://t.me/vortex_start_bot" target="_blank" class="w-full block text-center bg-white/5 hover:bg-cyanAccent/10 border border-white/10 hover:border-cyanAccent text-white font-bold py-3 rounded-xl transition-all">Выбрать</a>
+                    <a href="https://t.me/vortex_start_bot" target="_blank" rel="noopener noreferrer" class="w-full block text-center bg-white/5 hover:bg-cyanAccent/10 border border-white/10 hover:border-cyanAccent text-white font-bold py-3 rounded-xl transition-all">Оформить в боте</a>
                 </div>
 
                 <!-- 12 месяцев -->
@@ -295,14 +308,14 @@
                     <div class="text-3xl font-black text-white mb-2">2 900 ₽</div>
                     <div class="text-sm text-gray-500 mb-6 border-b border-white/5 pb-4">~ 28 USDT</div>
                     <ul class="text-sm text-gray-300 space-y-3 mb-6 flex-grow">
-                        <li class="flex items-center gap-3"><svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Стабильный доступ ко всем сайтам</li>
+                        <li class="flex items-center gap-3"><svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Стабильный доступ к сервисам</li>
                         <li class="flex items-center gap-3"><svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> ПК + Смартфон одновременно</li>
-                        <li class="flex items-center gap-3"><svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Защита от блокировок</li>
+                        <li class="flex items-center gap-3"><svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Авто-ротация при блокировках</li>
                         <li class="flex items-center gap-3"><svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Скорость до 1 Гбит/с</li>
-                        <li class="flex items-center gap-3"><svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> 2 IP-адреса</li>
+                        <li class="flex items-center gap-3"><svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> До 2 одновременных IP</li>
                     </ul>
-                    <a href="https://t.me/vortex_start_bot" target="_blank" class="w-full flex items-center justify-center gap-2 bg-accent hover:bg-accent/90 text-white font-bold py-3 rounded-xl transition-all shadow-[0_0_15px_rgba(168,85,247,0.4)]">
-                        Выбрать 
+                    <a href="https://t.me/vortex_start_bot" target="_blank" rel="noopener noreferrer" class="w-full flex items-center justify-center gap-2 bg-accent hover:bg-accent/90 text-white font-bold py-3 rounded-xl transition-all shadow-[0_0_15px_rgba(168,85,247,0.4)]">
+                        Оформить в боте
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                     </a>
                 </div>
@@ -319,22 +332,23 @@
                     <img src="./vortex.ico" alt="Logo" class="w-6 h-6"> VORTEX VPN
                 </div>
                 <p class="text-xs text-gray-500 leading-relaxed">
-                    Быстрая и безопасная VPN-сеть на базе VLESS Reality. Создана для обхода любых блокировок и максимальной стабильности.
+                    VPN на VLESS Reality с умной маршрутизацией и авто-восстановлением. Сайт — витрина и триал; оплата и ключи — в Telegram-боте.
                 </p>
             </div>
 
             <div class="col-span-1 flex flex-col items-start">
-                <h4 class="text-white font-bold mb-4 text-sm">Управление подпиской</h4>
-                <a href="https://t.me/vortex_start_bot" target="_blank" class="flex items-center gap-3 w-full sm:w-auto bg-white/5 hover:bg-cyanAccent/10 border border-white/10 hover:border-cyanAccent text-gray-300 hover:text-cyanAccent px-5 py-3 rounded-xl transition-all duration-300">
+                <h4 class="text-white font-bold mb-4 text-sm">Оплата и ключи</h4>
+                <a href="https://t.me/vortex_start_bot" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 w-full sm:w-auto bg-white/5 hover:bg-cyanAccent/10 border border-white/10 hover:border-cyanAccent text-gray-300 hover:text-cyanAccent px-5 py-3 rounded-xl transition-all duration-300">
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.19-.08-.05-.19-.02-.27 0-.11.03-1.84 1.18-5.21 3.45-.49.33-.94.5-1.34.49-.44-.01-1.28-.24-1.91-.44-.52-.17-.93-.26-.89-.55.02-.15.22-.3.62-.46 2.43-1.06 8.09-3.4 9.38-3.95.6-.26 1.15-.22 1.35.03.1.13.13.31.08.57z"/></svg>
-                    <span class="font-semibold">Открыть Telegram Бот</span>
+                    <span class="font-semibold">Telegram-бот (оплата / ключ)</span>
                 </a>
+                <p class="text-xs text-gray-600 mt-3">Понравился триал — подписка оформляется здесь же.</p>
             </div>
 
             <div class="col-span-1">
                 <h4 class="text-white font-bold mb-4 text-sm">Служба поддержки</h4>
                 <div class="flex gap-4 mb-4">
-                    <a href="https://t.me/vortex_start_bot" target="_blank" title="Поддержка в Telegram-боте" class="w-10 h-10 rounded-lg bg-white/5 hover:bg-cyanAccent/20 flex items-center justify-center text-gray-400 hover:text-cyanAccent transition-colors border border-white/5 hover:border-cyanAccent/50">
+                    <a href="https://t.me/vortex_start_bot" target="_blank" rel="noopener noreferrer" title="Написать в Telegram-боте" class="w-10 h-10 rounded-lg bg-white/5 hover:bg-cyanAccent/20 flex items-center justify-center text-gray-400 hover:text-cyanAccent transition-colors border border-white/5 hover:border-cyanAccent/50">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.19-.08-.05-.19-.02-.27 0-.11.03-1.84 1.18-5.21 3.45-.49.33-.94.5-1.34.49-.44-.01-1.28-.24-1.91-.44-.52-.17-.93-.26-.89-.55.02-.15.22-.3.62-.46 2.43-1.06 8.09-3.4 9.38-3.95.6-.26 1.15-.22 1.35.03.1.13.13.31.08.57z"/></svg>
                     </a>
                     <button id="copyEmailBtn" title="Копировать Email" class="w-10 h-10 rounded-lg bg-white/5 hover:bg-cyanAccent/20 flex items-center justify-center text-gray-400 hover:text-cyanAccent transition-colors border border-white/5 hover:border-cyanAccent/50">
@@ -353,7 +367,7 @@
     <div id="offerModal" class="modal">
         <div class="modal-content text-sm leading-relaxed">
             <span class="close-modal" id="closeOffer">&times;</span>
-            <h2 class="text-xl font-bold text-white mb-6 uppercase">Условия использования сервиса Vortex VPN (Terms of Service)</h2>
+            <h2 class="text-xl font-bold text-white mb-6 uppercase">Условия использования сервиса Vortex VPN (Оферта)</h2>
             <div class="text-gray-400 space-y-4">
                 <p><strong>1. Общие положения</strong><br>
                 1.1. Настоящий документ регулирует отношения между Администрацией сервиса Vortex VPN (далее — «Сервис») и Пользователем.<br>
@@ -394,15 +408,15 @@
                 <ul class="space-y-2 text-sm text-gray-300">
                     <li class="flex items-center gap-3">
                         <svg class="w-4 h-4 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                        <span><strong class="text-white">15 ГБ трафика</strong> (хватит на 70+ часов игры и войс-чатов)</span>
+                        <span><strong class="text-white">15 ГБ трафика</strong> (~70ч войса / ~5–8ч HD-видео; 4K съест быстрее)</span>
                     </li>
                     <li class="flex items-center gap-3">
                         <svg class="w-4 h-4 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                        <span><strong class="text-white">1 устройство</strong> (жесткая привязка к IP-адресу)</span>
+                        <span><strong class="text-white">1 одновременный IP</strong> (на платных тарифах — до 2)</span>
                     </li>
                     <li class="flex items-center gap-3">
                         <svg class="w-4 h-4 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                        <span><strong class="text-white">72 часа</strong> полного доступа к выделенному каналу</span>
+                        <span><strong class="text-white">72 часа</strong> с момента выдачи ключа</span>
                     </li>
                 </ul>
             </div>
@@ -414,12 +428,13 @@
             </div>
             
             <div id="trialResultBlock" class="hidden mt-4 text-left bg-black/50 p-4 border border-white/10 rounded-lg">
-                <p class="text-xs text-green-400 mb-2 font-mono uppercase tracking-widest">Ключ успешно создан</p>
+                <p id="trialStatusLabel" class="text-xs text-green-400 mb-2 font-mono uppercase tracking-widest">Ключ успешно создан</p>
                 <div class="flex gap-2">
                     <input type="text" id="vlessKey" class="w-full bg-transparent border-b border-white/20 text-white text-sm outline-none font-mono" readonly value="vless://загрузка...">
                     <button id="copyKeyBtn" class="bg-white/10 hover:bg-white/20 px-3 py-1 rounded text-xs transition-colors border border-white/10">Копировать</button>
                 </div>
-                <p class="text-xs text-gray-500 mt-3">Открой приложение Vortex, перейди в буфер обмена и импортируй профиль.</p>
+                <p class="text-xs text-gray-500 mt-3">Скопируй ключ → открой Vortex → «Добавить сервер» (+). Подробнее в <a href="instructions.html" class="text-cyanAccent hover:underline">инструкции</a>.</p>
+                <p class="text-xs text-gray-500 mt-2">Если всё ок — <a href="https://t.me/vortex_start_bot" target="_blank" rel="noopener noreferrer" class="text-cyanAccent hover:underline">оформи подписку в Telegram-боте</a>.</p>
             </div>
         </div>
     </div>
@@ -502,10 +517,20 @@
 
             // 4. Копирование Email
             const copyEmailBtn = document.getElementById('copyEmailBtn');
+            const emailText = document.getElementById('emailText');
             if (copyEmailBtn) {
                 copyEmailBtn.addEventListener('click', function(e) {
                     e.preventDefault();
-                    navigator.clipboard.writeText('support@data-sync-node.win');
+                    navigator.clipboard.writeText('support@data-sync-node.win').then(() => {
+                        if (!emailText) return;
+                        const prev = emailText.textContent;
+                        emailText.textContent = 'Email скопирован';
+                        emailText.classList.add('text-green-400');
+                        setTimeout(() => {
+                            emailText.textContent = prev;
+                            emailText.classList.remove('text-green-400');
+                        }, 2000);
+                    });
                 });
             }
 
@@ -555,9 +580,16 @@
                             resBlock.classList.remove('hidden');
                             
                             document.getElementById('vlessKey').value = data.key;
+                            const statusLabel = document.getElementById('trialStatusLabel');
+                            if (statusLabel) {
+                                statusLabel.textContent = 'Ключ успешно создан';
+                                statusLabel.classList.remove('text-yellow-400');
+                                statusLabel.classList.add('text-green-400');
+                            }
                             
-                            // Сохраняем ключ в память браузера, чтобы не потерялся при F5
+                            // Сохраняем ключ + время выдачи (триал = 72 часа)
                             localStorage.setItem('vortex_trial_key', data.key);
+                            localStorage.setItem('vortex_trial_at', String(Date.now()));
                         } else {
                             alert("Ошибка: " + (data.detail || "Сработала защита от мультиаккаунтов. Лимит исчерпан."));
                             this.disabled = false;
@@ -565,7 +597,7 @@
                         }
                     } catch (error) {
                         console.error(error);
-                        alert("Ошибка соединения с API сервером. Проверьте консоль.");
+                        alert("Не удалось связаться с сервером выдачи ключей. Попробуй ещё раз или напиши в Telegram-бот.");
                         this.disabled = false;
                         this.innerHTML = originalText;
                     }
@@ -573,15 +605,30 @@
             }
 
             // 6. Восстановление ключа при случайной перезагрузке страницы
+            const TRIAL_MS = 72 * 60 * 60 * 1000;
             const savedKey = localStorage.getItem('vortex_trial_key');
+            const savedAt = parseInt(localStorage.getItem('vortex_trial_at') || '0', 10);
             if (savedKey) {
                 const formBlock = document.getElementById('trialFormBlock');
                 const resBlock = document.getElementById('trialResultBlock');
+                const statusLabel = document.getElementById('trialStatusLabel');
                 if (formBlock && resBlock) {
                     formBlock.style.display = 'none';
                     resBlock.style.display = 'block';
                     resBlock.classList.remove('hidden');
                     document.getElementById('vlessKey').value = savedKey;
+                    const expired = savedAt > 0 && (Date.now() - savedAt) > TRIAL_MS;
+                    if (statusLabel) {
+                        if (expired) {
+                            statusLabel.textContent = 'Срок триала (72ч) истёк — оформи подписку в боте';
+                            statusLabel.classList.remove('text-green-400');
+                            statusLabel.classList.add('text-yellow-400');
+                        } else {
+                            statusLabel.textContent = 'Ваш тестовый ключ';
+                            statusLabel.classList.remove('text-yellow-400');
+                            statusLabel.classList.add('text-green-400');
+                        }
+                    }
                 }
             }
 
