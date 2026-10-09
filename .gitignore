@@ -1,0 +1,5 @@
+
+# Agent SSH keys — never commit
+cursor_agent_ed25519
+cursor_agent_ed25519.pub
+*.pem
