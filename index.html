@@ -432,7 +432,11 @@
                 </ul>
             </div>
             
-            <div id="trialFormBlock">
+            <div id="trialFormBlock" class="relative">
+                <!-- honeypot for bots; humans leave empty -->
+                <label class="absolute opacity-0 pointer-events-none -z-10 h-0 w-0 overflow-hidden" aria-hidden="true">Website
+                    <input type="text" id="trialWebsite" name="website" tabindex="-1" autocomplete="off">
+                </label>
                 <button id="generateTrialBtn" class="w-full bg-cyanAccent/20 hover:bg-cyanAccent/30 border border-cyanAccent text-cyanAccent font-bold py-3 px-4 rounded-lg transition-colors shadow-[0_0_15px_rgba(34,211,238,0.2)]">
                     Сгенерировать ключ
                 </button>
@@ -575,6 +579,18 @@
                 return (await vortexSha256Hex(stable + '|' + JSON.stringify(signals))).slice(0, 32);
             }
 
+            const vortexPageStartedAt = Date.now();
+
+            async function vortexSolvePow(nonce, difficulty) {
+                const prefix = '0'.repeat(difficulty);
+                for (let i = 0; i < 5000000; i++) {
+                    const hex = await vortexSha256Hex(nonce + ':' + i);
+                    if (hex.startsWith(prefix)) return String(i);
+                    if (i % 2500 === 0) await new Promise(r => setTimeout(r, 0));
+                }
+                throw new Error('pow_timeout');
+            }
+
             const generateTrialBtn = document.getElementById('generateTrialBtn');
             if (generateTrialBtn) {
                 generateTrialBtn.addEventListener('click', async function(e) {
@@ -582,9 +598,10 @@
                     
                     const originalText = this.innerHTML;
                     this.disabled = true;
-                    this.innerHTML = `<span class="animate-pulse tracking-widest text-white">СОЗДАНИЕ КЛЮЧА...</span>`;
+                    this.innerHTML = `<span class="animate-pulse tracking-widest text-white">ПРОВЕРКА...</span>`;
 
                     try {
+                        const honeypot = (document.getElementById('trialWebsite') || {}).value || '';
                         let visitorId;
                         try {
                             const fpPromise = import('https://openfpcdn.io/fingerprintjs/v3').then(FingerprintJS => FingerprintJS.load());
@@ -604,6 +621,14 @@
                         const signals = vortexCollectSignals();
                         const deviceHash = await vortexDeviceHash(signals, visitorId);
 
+                        const chRes = await fetch('https://api.data-sync-node.win/trial_challenge');
+                        const ch = await chRes.json();
+                        if (!chRes.ok || !ch.nonce) throw new Error('challenge_fail');
+
+                        this.innerHTML = `<span class="animate-pulse tracking-widest text-white">СОЗДАНИЕ КЛЮЧА...</span>`;
+                        const powSolution = await vortexSolvePow(ch.nonce, ch.difficulty || 4);
+                        const pageMs = Date.now() - vortexPageStartedAt;
+
                         const response = await fetch('https://api.data-sync-node.win/generate_trial', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
@@ -611,6 +636,12 @@
                                 fingerprint: visitorId,
                                 device_hash: deviceHash,
                                 signals,
+                                challenge_nonce: ch.nonce,
+                                challenge_sig: ch.sig,
+                                challenge_ts: ch.ts,
+                                pow_solution: powSolution,
+                                page_ms: pageMs,
+                                website: honeypot,
                             })
                         });
 
