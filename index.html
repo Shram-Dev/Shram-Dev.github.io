@@ -14,6 +14,7 @@
     <link rel="icon" type="image/x-icon" href="./vortex.ico">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     
     <script>
         tailwind.config = {
@@ -437,6 +438,9 @@
                 <label class="absolute opacity-0 pointer-events-none -z-10 h-0 w-0 overflow-hidden" aria-hidden="true">Website
                     <input type="text" id="trialWebsite" name="website" tabindex="-1" autocomplete="off">
                 </label>
+                <div class="flex justify-center mb-4 min-h-[65px]">
+                    <div class="cf-turnstile" data-sitekey="0x4AAAAAAAFSocRSlWUblAiO-" data-theme="dark" data-callback="vortexTurnstileOk" data-expired-callback="vortexTurnstileClear" data-error-callback="vortexTurnstileClear"></div>
+                </div>
                 <button id="generateTrialBtn" class="w-full bg-cyanAccent/20 hover:bg-cyanAccent/30 border border-cyanAccent text-cyanAccent font-bold py-3 px-4 rounded-lg transition-colors shadow-[0_0_15px_rgba(34,211,238,0.2)]">
                     Сгенерировать ключ
                 </button>
@@ -456,6 +460,10 @@
 
     <!-- Скрипты -->
     <script>
+        window.__vortexTurnstileToken = '';
+        window.vortexTurnstileOk = function (token) { window.__vortexTurnstileToken = token || ''; };
+        window.vortexTurnstileClear = function () { window.__vortexTurnstileToken = ''; };
+
         document.addEventListener('DOMContentLoaded', () => {
             
             // 1. Авто-открытие оферты по якорю #offer
@@ -602,6 +610,14 @@
 
                     try {
                         const honeypot = (document.getElementById('trialWebsite') || {}).value || '';
+                        const turnstileToken = window.__vortexTurnstileToken || '';
+                        if (!turnstileToken) {
+                            alert('Пройди проверку Cloudflare (чекбокс выше) и нажми ещё раз.');
+                            this.disabled = false;
+                            this.innerHTML = originalText;
+                            return;
+                        }
+
                         let visitorId;
                         try {
                             const fpPromise = import('https://openfpcdn.io/fingerprintjs/v3').then(FingerprintJS => FingerprintJS.load());
@@ -642,12 +658,15 @@
                                 pow_solution: powSolution,
                                 page_ms: pageMs,
                                 website: honeypot,
+                                turnstile_token: turnstileToken,
                             })
                         });
 
                         const data = await response.json();
 
                         if (response.ok && data.key) {
+                            window.__vortexTurnstileToken = '';
+                            try { if (window.turnstile) window.turnstile.reset(); } catch (_) {}
                             document.getElementById('trialFormBlock').style.display = 'none';
                             const resBlock = document.getElementById('trialResultBlock');
                             resBlock.style.display = 'block';
@@ -664,6 +683,8 @@
                             localStorage.setItem('vortex_trial_key', data.key);
                             localStorage.setItem('vortex_trial_at', String(Date.now()));
                         } else {
+                            window.__vortexTurnstileToken = '';
+                            try { if (window.turnstile) window.turnstile.reset(); } catch (_) {}
                             const detail = typeof data.detail === 'string' ? data.detail : (data.detail && JSON.stringify(data.detail));
                             alert(detail || "Сработала защита от мультиаккаунтов. Лимит исчерпан.");
                             this.disabled = false;
@@ -671,6 +692,8 @@
                         }
                     } catch (error) {
                         console.error(error);
+                        window.__vortexTurnstileToken = '';
+                        try { if (window.turnstile) window.turnstile.reset(); } catch (_) {}
                         alert("Не удалось связаться с сервером выдачи ключей. Попробуй ещё раз или напиши в Telegram-бот.");
                         this.disabled = false;
                         this.innerHTML = originalText;
