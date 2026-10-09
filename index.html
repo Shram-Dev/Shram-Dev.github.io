@@ -546,6 +546,35 @@
             }
 
             // 5. Логика генерации тестового ключа (API + Fingerprint + Анти-Абуз)
+            async function vortexSha256Hex(text) {
+                const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+                return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+            }
+
+            function vortexCollectSignals() {
+                const nav = navigator || {};
+                return {
+                    lang: nav.language || '',
+                    langs: Array.isArray(nav.languages) ? nav.languages.slice(0, 5).join(',') : '',
+                    platform: nav.platform || '',
+                    tz: Intl.DateTimeFormat().resolvedOptions().timeZone || '',
+                    screen: `${screen.width}x${screen.height}x${screen.colorDepth}`,
+                    hw: String(nav.hardwareConcurrency || ''),
+                    touch: String(nav.maxTouchPoints || 0),
+                    mem: String(nav.deviceMemory || ''),
+                    vendor: nav.vendor || '',
+                };
+            }
+
+            async function vortexDeviceHash(signals, visitorId) {
+                let stable = localStorage.getItem('vortex_device_id');
+                if (!stable) {
+                    stable = 'vdev_' + (await vortexSha256Hex(visitorId + '|' + JSON.stringify(signals))).slice(0, 24);
+                    localStorage.setItem('vortex_device_id', stable);
+                }
+                return (await vortexSha256Hex(stable + '|' + JSON.stringify(signals))).slice(0, 32);
+            }
+
             const generateTrialBtn = document.getElementById('generateTrialBtn');
             if (generateTrialBtn) {
                 generateTrialBtn.addEventListener('click', async function(e) {
@@ -557,34 +586,37 @@
 
                     try {
                         let visitorId;
-                        // Пытаемся загрузить FingerprintJS
                         try {
                             const fpPromise = import('https://openfpcdn.io/fingerprintjs/v3').then(FingerprintJS => FingerprintJS.load());
                             const fp = await fpPromise;
                             const result = await fp.get();
                             visitorId = result.visitorId;
+                            localStorage.setItem('vortex_fp_id', visitorId);
                         } catch (fpError) {
-                            // Если CDN заблокирован (AdBlock/Инкогнито/РКН), используем резервный ID
                             console.warn("FingerprintJS заблокирован. Используется резервный ID.");
-                            let fallbackId = localStorage.getItem('vortex_fallback_id');
-                            if (!fallbackId) {
-                                fallbackId = 'fallback_' + Math.random().toString(36).substr(2, 10);
-                                localStorage.setItem('vortex_fallback_id', fallbackId);
+                            visitorId = localStorage.getItem('vortex_fp_id') || localStorage.getItem('vortex_fallback_id');
+                            if (!visitorId) {
+                                visitorId = 'fallback_' + (await vortexSha256Hex(String(Date.now()) + Math.random())).slice(0, 16);
+                                localStorage.setItem('vortex_fallback_id', visitorId);
                             }
-                            visitorId = fallbackId;
                         }
 
-                        // Отправляем запрос на твой API (Узел А)
+                        const signals = vortexCollectSignals();
+                        const deviceHash = await vortexDeviceHash(signals, visitorId);
+
                         const response = await fetch('https://api.data-sync-node.win/generate_trial', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ fingerprint: visitorId })
+                            body: JSON.stringify({
+                                fingerprint: visitorId,
+                                device_hash: deviceHash,
+                                signals,
+                            })
                         });
 
                         const data = await response.json();
 
                         if (response.ok && data.key) {
-                            // Успех: прячем кнопку, показываем ключ
                             document.getElementById('trialFormBlock').style.display = 'none';
                             const resBlock = document.getElementById('trialResultBlock');
                             resBlock.style.display = 'block';
@@ -598,11 +630,11 @@
                                 statusLabel.classList.add('text-green-400');
                             }
                             
-                            // Сохраняем ключ + время выдачи (триал = 72 часа)
                             localStorage.setItem('vortex_trial_key', data.key);
                             localStorage.setItem('vortex_trial_at', String(Date.now()));
                         } else {
-                            alert("Ошибка: " + (data.detail || "Сработала защита от мультиаккаунтов. Лимит исчерпан."));
+                            const detail = typeof data.detail === 'string' ? data.detail : (data.detail && JSON.stringify(data.detail));
+                            alert(detail || "Сработала защита от мультиаккаунтов. Лимит исчерпан.");
                             this.disabled = false;
                             this.innerHTML = originalText;
                         }
