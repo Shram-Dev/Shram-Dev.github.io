@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Инструкция | Vortex VPN</title>
+    <meta name="description" content="Как подключить Vortex VPN: импорт VLESS-ключа, умные исключения (Direct/Bypass) и восстановление сети.">
+    <meta name="theme-color" content="#0f0f13">
     <link rel="icon" type="image/x-icon" href="./vortex.ico">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -47,7 +49,7 @@
 </head>
 <body class="text-gray-200 font-sans antialiased min-h-screen flex flex-col relative z-0">
     
-    <div class="fixed inset-0 bg-[url('./world_map.png')] bg-cover bg-center bg-no-repeat bg-fixed z-[-2] opacity-20"></div>
+    <div class="fixed inset-0 bg-[url('./world_map.webp')] bg-cover bg-center bg-no-repeat bg-fixed z-[-2] opacity-20"></div>
     <div class="fixed inset-0 bg-darkBg/90 backdrop-blur-[2px] z-[-1]"></div> 
 
     <!-- Fullscreen Image Modal (Lightbox) -->
@@ -69,8 +71,8 @@
 
     <main class="flex-grow w-full max-w-4xl mx-auto px-6 py-12">
         <div class="text-center mb-14">
-            <h1 class="text-3xl md:text-5xl font-black text-white mb-4 uppercase tracking-widest font-montserrat">Как начать <span class="text-cyanAccent">играть</span></h1>
-            <p class="text-gray-400">Краткое руководство по настройке клиента и умной маршрутизации.</p>
+            <h1 class="text-3xl md:text-5xl font-black text-white mb-4 uppercase tracking-widest font-montserrat">Как <span class="text-cyanAccent">подключиться</span></h1>
+            <p class="text-gray-400">Краткое руководство: импорт ключа, умная маршрутизация и что делать при сбоях.</p>
         </div>
 
         <div class="space-y-12">
@@ -171,7 +173,7 @@
                     <strong>Справка:</strong> Зачастую это не ошибка приложения. На магистральных линиях провайдеров регулярно происходят технические работы, обновление таблиц маршрутизации (BGP) или кратковременные перезагрузки шлюзов. Во время таких событий ваша текущая сетевая сессия может быть принудительно разорвана оборудованием провайдера.
                 </p>
                 <p class="text-gray-300 mb-6 leading-relaxed">
-                    Если вы столкнулись с такой аномалией, <strong>не нужно переустанавливать клиент</strong>. Достаточно разорвать заблокированную сессию: нажмите кнопку <strong>«Восстановить подключение» (круговая стрелка)</strong> в верхнем меню. Система мгновенно перестроит криптографический туннель и полностью восстановит связь.
+                    Если вы столкнулись с такой аномалией, <strong>не нужно переустанавливать клиент</strong>. Нажмите <strong>«Восстановить подключение» (круговая стрелка)</strong> в верхнем меню — клиент пересоберёт туннель. На стороне сервера при блокировках также работает авто-ротация SNI/порта; иногда достаточно подождать пару минут и нажать восстановление ещё раз.
                 </p>
                 
                 <!-- Сетка: Сбой -> Кнопка -> Починка -->
