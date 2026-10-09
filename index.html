@@ -439,7 +439,7 @@
                     <input type="text" id="trialWebsite" name="website" tabindex="-1" autocomplete="off">
                 </label>
                 <div class="flex justify-center mb-4 min-h-[65px]">
-                    <div class="cf-turnstile" data-sitekey="0x4AAAAAAAFSocRSlWUblAiO-" data-theme="dark" data-callback="vortexTurnstileOk" data-expired-callback="vortexTurnstileClear" data-error-callback="vortexTurnstileError"></div>
+                    <div class="cf-turnstile" data-sitekey="0x4AAAAAAFSocRSlWUb1AiO-" data-theme="dark" data-callback="vortexTurnstileOk" data-expired-callback="vortexTurnstileClear" data-error-callback="vortexTurnstileClear"></div>
                 </div>
                 <button id="generateTrialBtn" class="w-full bg-cyanAccent/20 hover:bg-cyanAccent/30 border border-cyanAccent text-cyanAccent font-bold py-3 px-4 rounded-lg transition-colors shadow-[0_0_15px_rgba(34,211,238,0.2)]">
                     Сгенерировать ключ
@@ -461,10 +461,8 @@
     <!-- Скрипты -->
     <script>
         window.__vortexTurnstileToken = '';
-        window.__vortexTurnstileFailed = false;
-        window.vortexTurnstileOk = function (token) { window.__vortexTurnstileToken = token || ''; window.__vortexTurnstileFailed = false; };
+        window.vortexTurnstileOk = function (token) { window.__vortexTurnstileToken = token || ''; };
         window.vortexTurnstileClear = function () { window.__vortexTurnstileToken = ''; };
-        window.vortexTurnstileError = function () { window.__vortexTurnstileToken = ''; window.__vortexTurnstileFailed = true; };
 
         document.addEventListener('DOMContentLoaded', () => {
             
@@ -613,14 +611,11 @@
                     try {
                         const honeypot = (document.getElementById('trialWebsite') || {}).value || '';
                         const turnstileToken = window.__vortexTurnstileToken || '';
-                        if (!turnstileToken && !window.__vortexTurnstileFailed) {
-                            // widget still loading / not solved
-                            if (window.turnstile && document.querySelector('.cf-turnstile iframe')) {
-                                alert('Пройди проверку Cloudflare (чекбокс выше) и нажми ещё раз.');
-                                this.disabled = false;
-                                this.innerHTML = originalText;
-                                return;
-                            }
+                        if (!turnstileToken) {
+                            alert('Пройди проверку Cloudflare (чекбокс выше) и нажми ещё раз.');
+                            this.disabled = false;
+                            this.innerHTML = originalText;
+                            return;
                         }
 
                         let visitorId;
