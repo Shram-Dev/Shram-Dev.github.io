@@ -1,0 +1,9 @@
+# Local / agent files — never commit
+cursor_agent_ed25519
+cursor_agent_ed25519.pub
+*.pem
+DOWNLOAD-HOST0-CLEAN/
+vortex-net-ru-HOST0.zip
+SKACHAT-ZIP.html
+.vortex-net-host0-ONLY-DO-NOT-COMMIT/
+vortex-net.ru/
